@@ -1,8 +1,17 @@
-/* Replacement artwork geometry only; all animation timelines remain unchanged. */
-.avatar { aspect-ratio: 2048 / 613; }
+/* Match the supplied wide cutout to the existing animated rig. */
+.avatar {
+  --aw: min(140vw, 150vh);
+  width: var(--aw);
+  aspect-ratio: 2048 / 613;
+  /* Native lower lashes are at y=592; keep the cut edge below the viewport. */
+  bottom: calc(var(--aw) * -0.01025) !important;
+}
 .avatar .eyes {
   background: radial-gradient(ellipse at 50% 65%, #fff9f4 15%, #e4c5b9 80%);
-  -webkit-mask: url(../assets/hero-character/eyes.svg) 0 0 / 100% 100% no-repeat;
-  mask: url(../assets/hero-character/eyes.svg) 0 0 / 100% 100% no-repeat;
+  -webkit-mask: url(../assets/hero-character/eyes.svg) 0 0 / 100% 100% no-repeat !important;
+  mask: url(../assets/hero-character/eyes.svg) 0 0 / 100% 100% no-repeat !important;
 }
 .avatar .eye { width: 6.1%; }
+@media (orientation: portrait) {
+  .avatar { --aw: min(200vw, 125vh); }
+}
