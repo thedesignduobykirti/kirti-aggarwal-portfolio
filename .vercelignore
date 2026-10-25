@@ -1,0 +1,12 @@
+# source files used to build the web assets, not needed on the site
+assets/*-raw.png
+assets/plate-raw.png
+assets/peek-hair-mask.png
+assets/reel-src-*.png
+assets/tools/adobeindesign.svg
+
+# never upload local secrets
+.env*
+.vercel
+IG-STYLE.md
+assets/favicon-src.png

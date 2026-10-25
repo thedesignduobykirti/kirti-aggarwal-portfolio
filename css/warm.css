@@ -1,0 +1,17 @@
+/* warm v4 (Oct 25): Kirti liked the original warm look best. Cream + cocoa, Nunito only (no serif),
+   the cream/peach moving gradient, and the layout changes from her feedback kept. */
+em, .brain, .w.brain { font-family: "Nunito", system-ui, sans-serif !important; font-style: italic !important; font-weight: 900 !important; letter-spacing: -.035em; }
+/* the "How a project runs" stage turns warm cocoa instead of navy */
+.mo { background: #01203d url(../assets/denim.jpg) center top / 1174px 2560px repeat !important; }
+
+/* her face crop: the bottom of the screen cuts just under her lower lashes (Kirti: no nose) */
+.avatar { bottom: calc(var(--aw) * -0.093) !important; }
+
+/* eyes: no CSS masks. Irises sit between the face and a copy of the face with eye-white holes */
+.avatar .eyes, .peek-eyes { -webkit-mask: none !important; mask: none !important; }
+.rig .lids { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; user-select: none; }
+
+/* the lanyard starts at a pin inside the About section, not above it */
+.cr-badge-zone { margin-top: 0 !important; }
+.cr { clip-path: inset(0 0 -40vh 0); }
+@media (max-width: 900px) { .cr-badge-zone { height: 560px !important; } }

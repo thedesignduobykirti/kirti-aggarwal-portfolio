@@ -1,0 +1,238 @@
+/* IG-style about section (Oct 13 rebuild)
+   Left: ID badge on a magenta "the DESIGN DUX" lanyard (verlet rope in creds.js, drag to swing).
+   Right: thin + heavy heading, Instagram post icons, profile stats that count up, story highlights.
+   Bottom: full-width tools band (marquee mechanics live in css/creds.css). */
+
+.ab { position: relative; z-index: 1; overflow-x: clip; }
+.ab-wrap {
+  position: relative;
+  display: grid; grid-template-columns: minmax(320px, .92fr) 1.08fr; column-gap: clamp(24px, 4vw, 72px);
+  padding: 0 clamp(20px, 4.4vw, 64px);
+}
+
+/* ---------- left: brushes on the wall, the lanyard and the badge ---------- */
+.ab-left { position: relative; min-height: min(86vh, 780px); }
+.ab-brush-m { left: -12%; top: 24%; width: 122%; rotate: -2deg; }
+.ab-brush-d { left: -18%; top: 54%; width: 138%; rotate: -22deg; transition-delay: .25s; }
+/* the badge swings in front of the heading when dragged; the brushes stay behind it */
+.ab-zone { position: absolute; inset: 0; z-index: 3; pointer-events: none; }
+.ab-rope { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
+.ab-strap { fill: none; stroke-linejoin: round; stroke-linecap: butt; }
+.ab-strap-sh { stroke: rgba(10, 12, 18, .2); stroke-width: 30px; transform: translate(10px, 14px); }
+.ab-strap-edge { stroke: var(--ig-magenta-deep); stroke-width: 31px; }
+.ab-strap-face { stroke: var(--ig-magenta); stroke-width: 27px; }
+.ab-print { fill: #fff; font-size: 12px; letter-spacing: .14em; dominant-baseline: central; }
+.ab-print .ab-p-thin { font-weight: 300; letter-spacing: .02em; }
+.ab-print .ab-p-bold { font-weight: 700; }
+
+.ab-badge {
+  position: absolute; left: 0; top: 0; width: clamp(236px, 20.5vw, 300px);
+  transform-origin: 50% 0; cursor: grab; touch-action: none; user-select: none; -webkit-user-select: none;
+  pointer-events: auto;
+}
+.ab-badge:active { cursor: grabbing; }
+/* the metal clasp: a ring the strap runs through, then the clip into the card slot */
+.ab-clip { position: relative; display: block; width: 36px; height: 40px; margin: 0 auto -16px; z-index: 2; }
+.ab-clip::before {
+  content: ""; position: absolute; left: 0; top: 0; width: 36px; height: 15px; box-sizing: border-box;
+  border: 3.5px solid #c9ccd2; border-radius: 8px;
+  box-shadow: 0 2px 3px rgba(0, 0, 0, .3), inset 0 1px 0 rgba(255, 255, 255, .5);
+}
+.ab-clip i {
+  position: absolute; left: 11px; top: 11px; width: 14px; height: 27px; border-radius: 5px 5px 4px 4px;
+  background: linear-gradient(90deg, #8b9097, #f1f2f4 42%, #b5b9bf 70%, #8b9097);
+  box-shadow: 0 3px 5px rgba(0, 0, 0, .3);
+}
+.ab-clip i::after { content: ""; position: absolute; left: 4px; right: 4px; top: 6px; height: 7px; border-radius: 3px; background: rgba(40, 44, 52, .45); }
+/* white card in a clear plastic sleeve */
+.ab-card {
+  position: relative; padding: 30px 15px 18px; border-radius: 18px;
+  background: var(--ig-card); color: var(--ig-card-text);
+  box-shadow:
+    0 0 0 6px rgba(255, 255, 255, .26), 0 0 0 7px rgba(255, 255, 255, .5),
+    0 34px 60px -26px rgba(8, 10, 16, .65), 0 10px 20px -12px rgba(8, 10, 16, .35);
+}
+.ab-slot { position: absolute; left: 50%; top: 11px; width: 46px; height: 8px; margin-left: -23px; border-radius: 6px; background: rgba(23, 24, 27, .12); box-shadow: inset 0 1px 2px rgba(0, 0, 0, .18); }
+.ab-photo-wrap { position: relative; }
+.ab-photo { display: block; width: 100%; height: auto; aspect-ratio: 42 / 50; object-fit: cover; border-radius: 11px; pointer-events: none; }
+.ab-doodle { position: absolute; left: 8px; top: 10px; width: 34px; height: 34px; rotate: -12deg; }
+.ab-doodle path { fill: none; stroke: var(--ig-magenta); stroke-width: 2.6; stroke-linecap: round; stroke-linejoin: round; }
+.ab-name { margin-top: 13px; display: flex; align-items: center; gap: 6px; font-size: clamp(20px, 1.65vw, 24px); font-weight: 700; letter-spacing: -.035em; line-height: 1.1; }
+.ab-tick { flex: none; width: .86em; height: .86em; }
+.ab-role { margin-top: 3px; font-size: 15px; font-weight: 500; letter-spacing: -.01em; color: #33363c; }
+.ab-swoosh { display: block; width: 62%; height: 10px; margin-top: 4px; }
+.ab-swoosh path { fill: none; stroke: var(--ig-magenta); stroke-width: 3.4; stroke-linecap: round; }
+.ab-since { margin-top: 9px; padding-top: 9px; border-top: 1px solid rgba(23, 24, 27, .1); font-size: 13.5px; font-weight: 500; color: var(--ig-card-soft); text-wrap: balance; }
+
+/* ---------- right: heading, post icons, stats, highlights ---------- */
+.ab-right {
+  position: relative; z-index: 2; min-width: 0;
+  display: grid; grid-template-columns: minmax(0, 1fr); justify-items: start; align-content: start;
+  padding: clamp(112px, 15vh, 150px) 0 clamp(36px, 6vh, 64px);
+  text-shadow: 0 1px 14px rgba(0, 0, 0, .14);
+}
+.ab-kick { display: flex; align-items: center; gap: 14px; margin-bottom: clamp(14px, 2.2vh, 22px); }
+.ab-kick::before { content: ""; width: 34px; height: 1.5px; background: currentColor; }
+.ab-h { font-size: clamp(38px, 4.9vw, 82px); line-height: .98; }
+.ab-h .t-heavy { font-size: 1.62em; line-height: .9; margin-top: .06em; }
+.ab-acts, .ab-stats, .ab-hlw { width: 100%; max-width: 620px; }
+.ab-acts { display: flex; align-items: center; gap: 18px; margin-top: clamp(18px, 2.8vh, 28px); color: var(--ig-text); }
+.ab-acts .ig-ic { width: 28px; height: 28px; }
+.ab-save { margin-left: auto; }
+.ab-like { display: grid; place-items: center; margin: -6px; padding: 6px; border: 0; background: none; color: inherit; cursor: pointer; }
+.ab-like[aria-pressed="true"] .ig-ic { background: #ff3040; }
+
+.ab-stats { list-style: none; display: grid; grid-template-columns: repeat(3, 1fr); margin-top: clamp(16px, 2.6vh, 26px); }
+.ab-stats li { position: relative; display: grid; justify-items: center; gap: 4px; padding: 4px 6px; text-align: center; }
+.ab-stats li + li::before { content: ""; position: absolute; left: 0; top: 10%; bottom: 10%; width: 1px; background: var(--ig-line); }
+.ab-num { font-size: clamp(40px, 4.3vw, 68px); font-weight: 700; letter-spacing: -.05em; line-height: 1; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.ab-br { display: inline-block; font-size: .78em; font-weight: 300; letter-spacing: 0; vertical-align: .08em; opacity: .5; margin: 0 .03em; }
+.ab-lbl { font-size: clamp(16px, 1.3vw, 19px); font-weight: 400; color: var(--ig-text); }
+
+/* story highlights: gradient ring, a gap that shows the wall, then the bubble */
+.ab-hlw { position: relative; margin-top: clamp(22px, 3.6vh, 36px); }
+.ab-hls { list-style: none; display: flex; justify-content: space-between; gap: 10px; }
+.ab-hl { display: grid; justify-items: center; gap: 10px; padding: 4px 2px; border: 0; background: none; color: var(--ig-text); font: inherit; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+.ab-ring { --s: clamp(76px, 6.5vw, 98px); position: relative; display: block; width: var(--s); height: var(--s); transition: scale .45s var(--ig-ease); }
+.ab-ring::before {
+  content: ""; position: absolute; inset: 0; border-radius: 50%;
+  background: conic-gradient(from 200deg, var(--ig-magenta), #ff4fa3 22%, var(--ig-magenta) 38%, #3b6aa8 62%, var(--ig-denim) 78%, var(--ig-magenta));
+  -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 3.5px), #000 calc(100% - 3px));
+  mask: radial-gradient(farthest-side, transparent calc(100% - 3.5px), #000 calc(100% - 3px));
+  transition: rotate .9s var(--ig-ease), opacity .4s;
+}
+.ab-bub {
+  position: absolute; inset: 7px; border-radius: 50%; display: grid; place-items: center;
+  background: radial-gradient(circle at 34% 28%, #4f5767, #2b313c 72%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .12), 0 10px 18px -10px rgba(0, 0, 0, .6);
+  color: #fff;
+}
+.ab-bub .ab-ico { width: 44%; height: 44%; }
+.ab-hl-lbl { font-size: 15px; font-weight: 500; letter-spacing: -.01em; white-space: nowrap; }
+.ab-hl:hover .ab-ring { scale: 1.06; }
+.ab-hl:hover .ab-ring::before, .ab-hl.is-on .ab-ring::before { rotate: 160deg; }
+.ab-hl.is-on .ab-ring { scale: 1.08; }
+/* seen: the ring goes quiet, like a watched story */
+.ab-hl.is-seen:not(.is-on) .ab-ring::before { background: rgba(251, 250, 247, .55); -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 2px), #000 calc(100% - 1.5px)); mask: radial-gradient(farthest-side, transparent calc(100% - 2px), #000 calc(100% - 1.5px)); }
+.ab-hl:focus-visible { outline: none; }
+.ab-hl:focus-visible .ab-ring { outline: 2px solid var(--ig-text); outline-offset: 4px; border-radius: 50%; }
+
+/* line icons (masks, coloured by currentColor) */
+.ab-ico { display: block; background: currentColor; -webkit-mask: var(--m) center / contain no-repeat; mask: var(--m) center / contain no-repeat; }
+.ab-ico-cap { --m: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M2.5 9 12 4.5 21.5 9 12 13.5z'/%3E%3Cpath d='M6.5 11.2v4.6c0 1.6 2.5 3.2 5.5 3.2s5.5-1.6 5.5-3.2v-4.6'/%3E%3Cpath d='M21.5 9v5.5'/%3E%3C/svg%3E"); }
+.ab-ico-cc { --m: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 9.2C10.9 7.9 9.6 7 8 7a5 5 0 0 0 0 10h8a5 5 0 0 0 0-10c-3.4 0-4.6 3.6-6.2 5.6'/%3E%3Cpath d='M12 14.8c1.1 1.3 2.4 2.2 4 2.2'/%3E%3C/svg%3E"); }
+.ab-ico-nda { --m: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M11 21H6.5A1.5 1.5 0 0 1 5 19.5v-15A1.5 1.5 0 0 1 6.5 3h7l5.5 5.5V11'/%3E%3Cpath d='M13.5 3v5.5H19'/%3E%3Crect x='13' y='15' width='8' height='6' rx='1.2'/%3E%3Cpath d='M14.8 15v-1.6a2.2 2.2 0 0 1 4.4 0V15'/%3E%3C/svg%3E"); }
+.ab-ico-team { --m: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='8.5' r='3'/%3E%3Cpath d='M6.8 19.5a5.2 5.2 0 0 1 10.4 0'/%3E%3Ccircle cx='5.6' cy='10.4' r='2.2'/%3E%3Cpath d='M1.8 18.2a3.8 3.8 0 0 1 4.6-3.6'/%3E%3Ccircle cx='18.4' cy='10.4' r='2.2'/%3E%3Cpath d='M22.2 18.2a3.8 3.8 0 0 0-4.6-3.6'/%3E%3C/svg%3E"); }
+.ab-ico-clock { --m: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='8.5'/%3E%3Cpath d='M12 7.5V12l3 2'/%3E%3C/svg%3E"); }
+.ab-ico-x { --m: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round'%3E%3Cpath d='M6 6l12 12M18 6 6 18'/%3E%3C/svg%3E"); }
+
+/* the story card a highlight opens */
+.ab-story {
+  position: absolute; left: var(--ab-x, 0px); bottom: calc(100% + 12px); z-index: 6;
+  width: min(340px, 100%); padding: 11px 14px 20px; border-radius: 18px;
+  color: #fff; text-shadow: none;
+  background: linear-gradient(158deg, #c4126c 0%, #8c1a69 46%, var(--ig-denim) 100%);
+  box-shadow: 0 34px 60px -26px rgba(5, 8, 14, .75), 0 0 0 1px rgba(255, 255, 255, .12) inset;
+  transform-origin: var(--ab-ox, 50%) calc(100% + 40px);
+}
+.ab-story[hidden] { display: none; }
+.ab-bars { display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; gap: 4px; }
+.ab-bars i { height: 2.5px; border-radius: 2px; background: rgba(255, 255, 255, .34); overflow: hidden; }
+.ab-bars i::after { content: ""; display: block; height: 100%; background: #fff; transform: scaleX(0); transform-origin: 0 50%; }
+.ab-bars i.is-done::after { transform: none; }
+.ab-bars i.is-on::after { animation: ab-fill var(--ab-dur, 6s) linear forwards; }
+.ab-story:hover .ab-bars i.is-on::after, .ab-story:focus-within .ab-bars i.is-on::after { animation-play-state: paused; }
+@keyframes ab-fill { to { transform: none; } }
+.ab-st-head { position: relative; z-index: 2; display: flex; align-items: center; gap: 7px; margin-top: 10px; font-size: 14px; }
+.ab-st-av { width: 30px; height: 30px; border-radius: 50%; box-shadow: 0 0 0 1.5px rgba(255, 255, 255, .7); }
+.ab-st-head b { font-weight: 600; letter-spacing: -.01em; }
+.ab-st-tick { width: 14px; height: 14px; }
+.ab-st-lbl { color: rgba(255, 255, 255, .78); }
+.ab-st-x { display: grid; place-items: center; width: 34px; height: 34px; margin: -6px -8px -6px auto; border: 0; border-radius: 50%; background: none; color: #fff; cursor: pointer; }
+.ab-st-x .ab-ico { width: 20px; height: 20px; }
+.ab-st-x:hover { background: rgba(255, 255, 255, .14); }
+.ab-st-body { display: grid; gap: 6px; margin-top: 16px; padding-right: 8px; }
+.ab-st-ico { width: 34px; height: 34px; margin-bottom: 6px; opacity: .95; }
+.ab-st-a { font-size: 20px; font-weight: 600; letter-spacing: -.025em; line-height: 1.2; }
+.ab-st-b { font-size: 16px; font-weight: 400; line-height: 1.35; color: rgba(255, 255, 255, .9); }
+/* tap the left or right half to step through, like Instagram */
+.ab-st-tap { position: absolute; z-index: 1; top: 52px; bottom: 0; width: 50%; border: 0; background: none; padding: 0; }
+.ab-st-prev { left: 0; cursor: w-resize; border-radius: 0 0 0 18px; }
+.ab-st-next { right: 0; cursor: e-resize; border-radius: 0 0 18px 0; }
+.ab-st-tap:focus-visible { outline: 2px solid #fff; outline-offset: -4px; }
+
+/* ---------- tools band: big logos, white names, thin white rules ---------- */
+.ab-tools-band {
+  position: relative; z-index: 1; display: grid; gap: clamp(22px, 3.4vh, 34px); min-width: 0;
+  margin-top: clamp(20px, 4vh, 48px); padding: clamp(28px, 4.4vh, 44px) 0 clamp(26px, 4vh, 40px);
+  border-top: 1px solid var(--ig-line); border-bottom: 1px solid var(--ig-line);
+}
+.ab-tools-k { text-align: center; }
+.ab-tools { list-style: none; display: flex; flex-wrap: wrap; justify-content: center; }
+.ab-tool {
+  position: relative; display: flex; flex-direction: column; align-items: center; gap: 14px;
+  width: clamp(150px, 15vw, 224px); padding: 0 10px;
+  font-size: clamp(15px, 1.15vw, 18px); font-weight: 500; letter-spacing: -.01em; color: var(--ig-text);
+  text-shadow: 0 1px 12px rgba(0, 0, 0, .16);
+  transition: translate .4s var(--ig-ease);
+}
+.ab-tool::after { content: ""; position: absolute; right: 0; top: 8%; height: 56%; width: 1px; background: var(--ig-line); }
+.ab-tool:hover { translate: 0 -5px; }
+.ab-tool-ic {
+  --ic: clamp(60px, 5.4vw, 82px);
+  position: relative; display: grid; place-items: center; width: var(--ic); height: var(--ic);
+  filter: drop-shadow(0 12px 14px rgba(6, 8, 14, .32));
+}
+.ab-tool-ic img { position: relative; width: 100%; height: 100%; object-fit: contain; }
+/* Adobe marks are a tile with the letters cut out: tint the tile, show the letter colour through it */
+.ab-t-ae .ab-tool-ic::before, .ab-t-ai .ab-tool-ic::before, .ab-t-ps .ab-tool-ic::before, .ab-t-pr .ab-tool-ic::before {
+  content: ""; position: absolute; inset: 14%; border-radius: 12%; background: var(--fg);
+}
+.ab-t-ae .ab-tool-ic img, .ab-t-ai .ab-tool-ic img, .ab-t-ps .ab-tool-ic img, .ab-t-pr .ab-tool-ic img, .ab-t-bl .ab-tool-ic img {
+  -webkit-mask: var(--src) center / contain no-repeat; mask: var(--src) center / contain no-repeat;
+  background: var(--bg); object-position: -9999px;
+}
+.ab-t-ae { --bg: #00005b; --fg: #9999ff; --src: url(../assets/tools/adobeaftereffects.svg); }
+.ab-t-ai { --bg: #330000; --fg: #ff9a00; --src: url(../assets/tools/adobeillustrator.svg); }
+.ab-t-ps { --bg: #001e36; --fg: #31a8ff; --src: url(../assets/tools/adobephotoshop.svg); }
+.ab-t-pr { --bg: #00005b; --fg: #9999ff; --src: url(../assets/tools/adobepremierepro.svg); }
+.ab-t-bl { --bg: #e87d0d; --src: url(../assets/tools/blender.svg); }
+.ab-t-fg .ab-tool-ic img, .ab-t-bl .ab-tool-ic img { width: 76%; height: 76%; }
+
+/* ---------- phones: badge on top, then heading, stats, highlights (swipe), tools ---------- */
+@media (max-width: 900px) {
+  .ab-wrap { grid-template-columns: 1fr; }
+  .ab-left { min-height: 0; height: clamp(560px, 146vw, 680px); margin: 0 calc(-1 * clamp(20px, 4.4vw, 64px)); }
+  .ab-brush-m { left: -30%; top: 40%; width: 150%; }
+  .ab-brush-d { left: -30%; top: 60%; width: 140%; rotate: -20deg; }
+  .ab-right { padding-top: 6px; padding-bottom: 18px; }
+  .ab-tools-band { margin-top: 12px; }
+  .ab-h { font-size: clamp(36px, 9.4vw, 64px); }
+  .ab-acts, .ab-stats, .ab-hlw { max-width: none; }
+  /* bleed to the screen edges so the swipe row runs off both sides, like Instagram */
+  .ab-hlw { --bleed: clamp(20px, 4.4vw, 64px); width: calc(100% + 2 * var(--bleed)); margin-left: calc(-1 * var(--bleed)); padding: 0 var(--bleed); }
+  .ab-hls {
+    justify-content: flex-start; gap: 14px; overflow-x: auto; overscroll-behavior-x: contain;
+    scroll-snap-type: x proximity; scrollbar-width: none;
+    margin: 0 calc(-1 * var(--bleed)); padding: 6px var(--bleed) 8px;
+  }
+  .ab-hls li { flex: none; }
+  .ab-hls::-webkit-scrollbar { display: none; }
+  .ab-hls li { scroll-snap-align: start; scroll-margin-left: var(--bleed); }
+  .ab-ring { --s: 76px; }
+  .ab-story { width: min(340px, calc(100% - 2 * var(--bleed))); }
+  .ab-tool { width: 140px; }
+  .ab-tool-ic { --ic: 60px; }
+}
+@media (max-width: 520px) {
+  .ab-num { font-size: 40px; }
+  .ab-lbl { font-size: 16px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ab-ring, .ab-ring::before, .ab-tool { transition: none; }
+  .ab-hl:hover .ab-ring::before, .ab-hl.is-on .ab-ring::before { rotate: none; }
+}
+
+/* integration: the lanyard must never reach up into the stories section above */
+.ab { clip-path: inset(0 0 -40vh 0); }

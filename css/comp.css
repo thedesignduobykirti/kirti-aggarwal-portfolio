@@ -1,0 +1,174 @@
+/* comp section overrides (v2, Oct 13)
+   "How we'll work together": the old "built to slot into your team" editor, rebuilt as the
+   project + payment flow. The editor shell (bar, ruler, rows, playhead) still comes from style.css;
+   everything below either overrides it or styles the new canvas. Colours only through the palette vars. */
+
+.cp {
+  --line: color-mix(in srgb, var(--cocoa) 14%, transparent);
+  --soft: color-mix(in srgb, var(--cocoa) 7%, transparent);
+  --cp-card: color-mix(in srgb, var(--cream) 40%, #fff);
+  --cp-ok: #2f8f55; /* "paid / done" green: semantic, stays green whatever the palette */
+  --cp-shadow: 0 20px 40px -28px color-mix(in srgb, var(--cocoa) 60%, transparent);
+}
+.cp-editor { box-shadow: 0 30px 70px -50px color-mix(in srgb, var(--cocoa) 55%, transparent); }
+.cp-pin { padding-top: 80px; }
+
+/* ---------- canvas: a fixed side column (title, step counter) + the stage where scenes play ---------- */
+.cp-canvas { display: grid; grid-template-columns: minmax(260px, 31%) 1fr; }
+.cp-side {
+  display: flex; flex-direction: column; justify-content: center; gap: 14px;
+  padding: clamp(20px, 3vw, 48px); border-right: 1px solid var(--line); min-width: 0;
+}
+.cp-eyebrow { font-size: 12px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--cocoa-soft); }
+.cp-heading { font-weight: 900; letter-spacing: -.035em; line-height: .98; font-size: clamp(32px, 3.6vw, 60px); }
+.cp-heading em { font-family: "Nunito", system-ui, sans-serif; font-style: normal; font-weight: 700;  padding-right: .05em; }
+.cp-sub { font-size: clamp(14px, 1.05vw, 16px); font-weight: 600; line-height: 1.45; color: var(--cocoa-soft); max-width: 30ch; }
+.cp-count { display: flex; align-items: baseline; gap: 8px; margin-top: 6px; font-variant-numeric: tabular-nums; }
+.cp-count b { font-weight: 900; font-size: clamp(40px, 4vw, 64px); letter-spacing: -.04em; line-height: 1; }
+.cp-count span { font-weight: 800; font-size: 15px; color: var(--cocoa-soft); }
+
+.cp-stage { position: relative; min-width: 0; min-height: 0; overflow: hidden; }
+.cp-sc {
+  position: absolute; inset: 0; padding: 18px clamp(16px, 2.4vw, 40px);
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: clamp(14px, 2.6vh, 26px);
+  opacity: 0; visibility: hidden;
+}
+.cp-step {
+  padding: 8px 16px; border-radius: 999px; background: var(--soft);
+  font-size: clamp(15px, 1.35vw, 21px); font-weight: 700; text-align: center; line-height: 1.25;
+}
+.cp-step b { font-weight: 900; }
+
+/* shared bits */
+.cp-card {
+  width: min(100%, 400px); padding: 16px 18px; border-radius: 16px;
+  background: var(--cp-card); border: 1px solid var(--line); box-shadow: var(--cp-shadow);
+}
+.cp-card-h { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; padding-bottom: 10px; margin-bottom: 10px; border-bottom: 1px solid var(--line); font-weight: 900; font-size: 16px; }
+.cp-card-h small { font-size: 12.5px; font-weight: 700; color: var(--cocoa-soft); white-space: nowrap; }
+.cp-ok { display: inline-flex; align-items: center; gap: 7px; color: var(--cp-ok); font-size: 13px; font-weight: 800; }
+.cp-ok::before { content: "✓"; width: 18px; height: 18px; border-radius: 50%; background: var(--cp-ok); color: #fff; display: grid; place-items: center; font-size: 11px; }
+
+/* 1 brief */
+.cp-mail { width: min(100%, 400px); padding: 16px 18px; border-radius: 16px; background: var(--cp-card); border: 1px solid var(--line); box-shadow: var(--cp-shadow); display: grid; gap: 12px; }
+.cp-mail-top { display: flex; align-items: center; gap: 10px; }
+.cp-mail-top b { display: block; font-size: 14px; font-weight: 900; }
+.cp-mail-top small { display: block; font-size: 13px; font-weight: 700; color: var(--cocoa-soft); }
+.cp-mail-av { flex: none; width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center; background: var(--cocoa); color: var(--cream); font-size: 11px; font-weight: 900; }
+.cp-mail-line { font-size: 14px; font-weight: 600; line-height: 1.4; }
+.cp-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.cp-chip { display: inline-flex; align-items: center; gap: 8px; padding: 7px 12px 7px 9px; border-radius: 10px; border: 1px solid var(--line); background: color-mix(in srgb, var(--cocoa) 4%, var(--cp-card)); font-size: 13px; font-weight: 800; }
+.cp-ico { width: 16px; height: 16px; background: var(--cocoa-soft); }
+.cp-ico-drive { clip-path: polygon(50% 4%, 100% 92%, 0 92%); }
+.cp-ico-fig { border-radius: 50% 50% 50% 0; background: var(--cocoa); }
+
+/* 2 quote */
+.cp-quote dl { display: grid; gap: 2px; }
+.cp-qrow { display: flex; justify-content: space-between; gap: 16px; padding: 6px 0; font-size: 14px; }
+.cp-qrow dt { color: var(--cocoa-soft); font-weight: 700; }
+.cp-qrow dd { font-weight: 800; text-align: right; }
+.cp-qtotal { margin-top: 4px; padding-top: 10px; border-top: 1px solid var(--line); font-size: 17px; }
+.cp-qtotal dt { color: var(--cocoa); font-weight: 900; }
+.cp-qtotal dd { font-weight: 900; }
+
+/* 3 + 6 payment cards */
+.cp-pay { display: grid; gap: 12px; }
+.cp-pay .cp-card-h { margin-bottom: 0; }
+.cp-paybar { position: relative; height: 14px; margin-top: 18px; border-radius: 8px; background: var(--soft); }
+.cp-payfill { position: absolute; inset: 0; border-radius: 8px; background: var(--cocoa); transform-origin: 0 50%; transform: scaleX(0); }
+.cp-payband { position: absolute; left: 60%; width: 10%; top: -5px; bottom: -5px; border: 1.5px dashed var(--cocoa-soft); border-radius: 6px; }
+.cp-payband::after { content: "advance"; position: absolute; left: 50%; bottom: calc(100% + 4px); transform: translateX(-50%); font-size: 11px; font-weight: 800; color: var(--cocoa-soft); white-space: nowrap; }
+.cp-paynum { font-size: 14px; font-weight: 700; color: var(--cocoa-soft); }
+.cp-paynum b { font-size: clamp(30px, 2.6vw, 40px); font-weight: 900; color: var(--cocoa); letter-spacing: -.03em; font-variant-numeric: tabular-nums; margin-right: 2px; }
+.cp-pay-ok { justify-self: start; }
+.cp-go { justify-self: start; padding: 7px 14px; border-radius: 999px; background: var(--cocoa); color: var(--cream); font-size: 13px; font-weight: 800; }
+.cp-files { display: flex; flex-wrap: wrap; gap: 8px; padding-top: 4px; }
+.cp-files span { padding: 8px 12px; border-radius: 10px; border: 1px solid var(--line); background: color-mix(in srgb, var(--cocoa) 5%, var(--cp-card)); font-size: 13px; font-weight: 900; font-variant-numeric: tabular-nums; }
+
+/* 4 first draft */
+.cp-draft { display: grid; gap: 14px; justify-items: center; width: min(100%, 420px); }
+.cp-dbar { width: 100%; display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 10px; font-size: 12.5px; font-weight: 800; color: var(--cocoa-soft); }
+.cp-dtrack { position: relative; height: 8px; border-radius: 6px; background: var(--soft); overflow: hidden; }
+.cp-dtrack i { position: absolute; inset: 0; background: var(--cocoa); border-radius: 6px; transform-origin: 0 50%; transform: scaleX(0); }
+.cp-dframe { width: 100%; }
+.cp-dframe img { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 14px; box-shadow: var(--cp-shadow); }
+.cp-dframe figcaption { margin-top: 8px; font-size: 13px; font-weight: 800; text-align: center; }
+
+/* 5 revisions */
+.cp-rv { position: relative; display: flex; flex-direction: column; align-items: center; gap: 12px; padding: 0 clamp(124px, 11vw, 176px); }
+.cp-rv-round { padding: 6px 12px; border-radius: 999px; background: var(--soft); font-size: 13px; font-weight: 800; white-space: nowrap; }
+.cp-rv-frame { position: relative; height: clamp(170px, 30vh, 270px); aspect-ratio: 9 / 16; }
+.cp-rv-frame img { display: block; width: 100%; height: 100%; object-fit: cover; border-radius: 14px; box-shadow: var(--cp-shadow); }
+.cp-dot { position: absolute; width: 26px; height: 26px; border-radius: 50%; background: var(--cocoa); color: var(--cream); display: grid; place-items: center; font-size: 13px; font-weight: 900; box-shadow: 0 0 0 3px var(--cp-card); }
+.cp-d1 { left: -10px; top: 14%; } .cp-d2 { right: -10px; top: 56%; }
+.cp-note { position: absolute; width: clamp(112px, 10vw, 160px); padding: 10px 12px; border-radius: 12px; background: var(--cp-card); border: 1px solid var(--line); box-shadow: var(--cp-shadow); font-size: 13px; font-weight: 700; }
+.cp-note .cp-ok { margin-top: 6px; font-size: 12px; }
+.cp-n1 { left: 0; top: 22%; } .cp-n2 { right: 0; top: 60%; }
+
+/* end: summary strip + CTA, takes the full stage width */
+.cp-sum { align-items: stretch; padding-inline: clamp(20px, 3vw, 48px); }
+.cp-sum-top { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; }
+.cp-sum-top h3 { font-weight: 900; letter-spacing: -.03em; font-size: clamp(26px, 2.8vw, 46px); line-height: 1; }
+.cp-sum-pct { font-weight: 900; font-size: 18px; font-variant-numeric: tabular-nums; }
+.cp-sum-bar { height: 8px; border-radius: 8px; background: var(--soft); overflow: hidden; }
+.cp-sum-bar i { display: block; height: 100%; background: var(--cocoa); border-radius: 8px; transform-origin: 0 50%; transform: scaleX(0); }
+.cp-sum-list { list-style: none; display: grid; grid-template-columns: repeat(3, 1fr); gap: 0 clamp(14px, 1.6vw, 26px); }
+.cp-sum-list li { display: grid; grid-template-columns: auto 1fr; column-gap: 10px; align-items: baseline; padding: clamp(10px, 1.8vh, 16px) 0; border-top: 1px solid var(--line); }
+.cp-sum-list b { grid-row: span 2; font-size: 13px; font-weight: 900; color: var(--cocoa-soft); font-variant-numeric: tabular-nums; }
+.cp-sum-list strong { font-size: clamp(16px, 1.35vw, 20px); font-weight: 900; letter-spacing: -.01em; }
+.cp-sum-list span { font-size: 13.5px; font-weight: 600; color: var(--cocoa-soft); }
+.cp-cta { align-self: flex-start; padding: 13px 24px; border-radius: 999px; background: var(--cocoa); color: var(--cream); font-weight: 800; transition: translate .3s var(--ease); }
+.cp-cta:hover { translate: 0 -2px; }
+
+/* ---------- timeline tweaks ---------- */
+.cp-row::before { background: color-mix(in srgb, var(--cocoa) 9%, transparent); }
+.cp-desc { display: block; position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+
+/* ---------- phones and small tablets: title becomes a slim header row above the stage ---------- */
+@media (max-width: 900px) {
+  .cp-pin { padding-top: 72px; }
+  .cp-canvas { display: grid; grid-template-columns: 1fr; grid-template-rows: auto 1fr; }
+  .cp-side {
+    flex-direction: row; align-items: center; justify-content: space-between; gap: 12px;
+    padding: 12px 16px; border-right: 0; border-bottom: 1px solid var(--line);
+  }
+  .cp-eyebrow, .cp-sub { display: none; }
+  .cp-heading { font-size: 24px; }
+  .cp-count { margin: 0; gap: 4px; }
+  .cp-count b { font-size: 26px; }
+  .cp-count span { font-size: 12px; }
+  .cp-sc { padding: 12px 14px; gap: 14px; }
+  .cp-step { font-size: 14.5px; padding: 7px 13px; }
+  .cp-card, .cp-mail { padding: 13px 14px; }
+  .cp-qrow { font-size: 13px; padding: 4px 0; }
+  .cp-qtotal { font-size: 15px; }
+  .cp-rv { padding: 0 108px; }
+  .cp-rv-frame { height: clamp(150px, 26vh, 220px); }
+  .cp-note { width: 100px; padding: 8px 9px; font-size: 12px; }
+  .cp-sum { gap: 12px; }
+  .cp-sum-top h3 { font-size: 24px; }
+  .cp-sum-list { grid-template-columns: 1fr 1fr; column-gap: 12px; }
+  .cp-sum-list li { padding: 8px 0; }
+  .cp-sum-list strong { font-size: 15px; }
+  .cp-sum-list span { font-size: 12px; }
+  .cp-meta { display: none; }
+}
+@media (max-width: 900px) and (max-height: 700px) {
+  .cp-rv-frame { height: 130px; }
+  .cp-dframe { width: 82%; justify-self: center; }
+}
+
+/* ---------- reduced motion: no pin, every step in its finished state, stacked ---------- */
+.cp.static .cp-canvas { display: block; padding: 0; }
+.cp.static .cp-side { border-right: 0; border-bottom: 1px solid var(--line); flex-direction: column; align-items: flex-start; padding: clamp(20px, 3vw, 48px); }
+.cp.static .cp-eyebrow, .cp.static .cp-sub { display: block; }
+.cp.static .cp-count { display: none; }
+.cp.static .cp-stage { display: grid; gap: 44px; padding: 34px 0 44px; overflow: visible; }
+.cp.static .cp-sc { position: static; opacity: 1; visibility: visible; transform: none; }
+
+/* big screens: the stage has room, so the step visuals grow (scale, not transform: JS owns transform) */
+@media (min-width: 1200px) and (min-height: 760px) {
+  .cp-sc:not(.cp-sum) > :not(.cp-step) { scale: 1.14; }
+  .cp-sc:not(.cp-sum) { gap: 42px; }
+}
+.cp.static .cp-sc > * { scale: none; }

@@ -1,0 +1,74 @@
+/* Oct 25: micro interactions. The mode switch, the footer name, magnetic buttons,
+   rolling nav links, press + ripple feedback, a scroll line, small hover pops. Driven by micro.js. */
+
+/* ---------- light / dark: a circle wipes the new theme out from the switch ---------- */
+::view-transition-old(root), ::view-transition-new(root) { animation: none; mix-blend-mode: normal; }
+
+/* the switch icon: a moon in light mode, a sun in dark mode, one shape morphing into the other */
+.mode-tg { transition: opacity .3s, scale .25s cubic-bezier(.34, 1.56, .64, 1); }
+.mode-tg:active { scale: .88; }
+.mode-tg .mt { width: 20px; height: 20px; overflow: visible; transition: rotate .7s cubic-bezier(.34, 1.56, .64, 1); }
+.mode-tg .mt-core, .mode-tg .mt-rays { transform-box: fill-box; transform-origin: 50% 50%; }
+.mode-tg .mt-core { transition: transform .7s cubic-bezier(.34, 1.56, .64, 1); }
+.mode-tg .mt-cut { transition: transform .7s cubic-bezier(.7, 0, .2, 1); }
+.mode-tg .mt-rays { transition: transform .7s cubic-bezier(.34, 1.56, .64, 1), opacity .35s ease; }
+html[data-theme="light"] .mode-tg .mt-core { transform: scale(1.4); }
+html[data-theme="light"] .mode-tg .mt-rays { opacity: 0; transform: rotate(-90deg) scale(.4); }
+html[data-theme="dark"] .mode-tg .mt-cut { transform: translate(10px, -10px); }
+html[data-theme="dark"] .mode-tg .mt-rays { opacity: 1; transform: none; }
+@media (hover: hover) {
+  html[data-theme="light"] .mode-tg:hover .mt { rotate: -22deg; }
+  html[data-theme="dark"] .mode-tg:hover .mt { rotate: 45deg; }
+}
+.mode-tg.is-flip .mt { animation: mc-flip .8s cubic-bezier(.34, 1.4, .64, 1); }
+@keyframes mc-flip { from { rotate: -200deg; scale: .4; } to { rotate: 0deg; scale: 1; } }
+
+/* ---------- the footer name: upright, the letters rise in, then a slow wave runs through them ---------- */
+.cl-wm { letter-spacing: -.025em; }
+.cl-wm .wm-line { display: inline-block; white-space: nowrap; }
+.cl-wm .wm-line > span {
+  display: inline-block;
+  transition: transform .9s cubic-bezier(.16, 1, .3, 1) calc(var(--i) * 40ms), opacity .6s ease calc(var(--i) * 40ms);
+}
+.cl-wm.is-armed:not(.is-in) .wm-line > span { opacity: 0; transform: translateY(35%); }
+.cl-wm b { display: inline-block; font-weight: 900; }
+
+/* ---------- scroll line across the top ---------- */
+.mc-prog {
+  position: fixed; left: 0; top: 0; z-index: 1001; width: 100%; height: 2px;
+  background: var(--cocoa); transform-origin: 0 50%; transform: scaleX(0); pointer-events: none;
+}
+
+/* ---------- nav links roll to a second copy of the word on hover ---------- */
+.mc-roll { display: inline-block; overflow: hidden; vertical-align: bottom; line-height: 1.3em; height: 1.3em; }
+.mc-roll > span { display: block; text-shadow: 0 1.3em currentColor; transition: transform .5s cubic-bezier(.7, 0, .2, 1); }
+@media (hover: hover) { a:hover > .mc-roll > span { transform: translateY(-1.3em); } }
+
+/* ---------- buttons: magnetic (micro.js), a press, a ripple from the click point ---------- */
+.mc-mag { transition-property: background-color, color, box-shadow, opacity, scale !important; transition-duration: .3s !important; }
+.mc-mag:active { scale: .95; }
+.mc-btn { position: relative; overflow: hidden; isolation: isolate; }
+.mc-ripple {
+  position: absolute; z-index: -1; width: 10px; height: 10px; margin: -5px 0 0 -5px; border-radius: 50%;
+  background: currentColor; opacity: .28; pointer-events: none; animation: mc-ripple .7s cubic-bezier(.16, 1, .3, 1) forwards;
+}
+@keyframes mc-ripple { to { transform: scale(var(--s, 60)); opacity: 0; } }
+
+/* ---------- small pops ---------- */
+.cl-fm-av, .cl-fm-logo { transition: rotate .6s cubic-bezier(.34, 1.56, .64, 1), scale .6s cubic-bezier(.34, 1.56, .64, 1); }
+@media (hover: hover) {
+  .cl-fm-ig:hover .cl-fm-av { rotate: -8deg; scale: 1.06; }
+  .cl-fm-card:hover .cl-fm-logo { rotate: 7deg; scale: 1.08; }
+}
+.bf-form .bf-chips input:checked + span::before { animation: mc-pop .45s cubic-bezier(.34, 1.8, .64, 1); }
+@keyframes mc-pop { 0% { scale: .4; } 100% { scale: 1; } }
+.cl-top span { transition: translate .4s cubic-bezier(.34, 1.56, .64, 1); }
+.cl-top:hover span { translate: 0 -5px; }
+
+::selection { background: var(--cocoa); color: var(--cream); }
+
+@media (prefers-reduced-motion: reduce) {
+  .cl-wm .wm-line > span, .mode-tg .mt, .mode-tg .mt * { transition: none !important; animation: none !important; }
+  .mc-roll > span { transition: none; }
+  .mc-ripple { display: none; }
+}

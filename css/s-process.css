@@ -1,0 +1,247 @@
+/* =====================================================================
+   IG-style process section (Oct 13 rebuild): "How we'll work together."
+   Six steps as an Instagram stories sequence.
+   Default (no JS, reduced motion): every story visible and still.
+   .ps-live  (desktop, process.js): pinned stage, scroll plays the stories.
+   .ps-swipe (phones, process.js): swipe row with tap zones and auto-progress bars.
+   ===================================================================== */
+.ps { position: relative; z-index: 1; color: var(--ig-text); }
+.ps-pin { position: relative; overflow: clip; padding: clamp(96px, 13vh, 150px) 0 clamp(80px, 11vh, 130px); }
+
+/* ---------- heading ---------- */
+.ps-head { position: relative; z-index: 3; padding: 0 20px; text-align: center; }
+.ps .ps-h { font-size: clamp(40px, min(5.6vw, 9vh), 96px); }
+.ps-h .fig-box { margin-top: .05em; }
+
+/* ---------- brush strokes behind the stories ---------- */
+.ps-brush-m { width: min(1700px, 104vw); left: -8vw; top: 24%; z-index: 0; }
+.ps-brush-d { width: min(1500px, 86vw); right: -16vw; top: 30%; z-index: 0; rotate: -11deg; }
+.ps-brush-m img { opacity: .96; }
+.ps-brush-d img { opacity: .92; }
+
+/* ---------- the row ---------- */
+.ps-reel { --ps-w: 300px; position: relative; z-index: 1; list-style: none; margin: 0; padding: 0; }
+.ps-story { position: relative; width: var(--ps-w); aspect-ratio: 9 / 16; }
+
+/* ---------- a story: frosted card, IG chrome top and bottom ---------- */
+.ps-card {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column;
+  font-size: calc(var(--ps-w) / 20);   /* 1em = a twentieth of the card width: everything scales together */
+  padding: .8em .9em .9em;
+  border-radius: 1.05em; overflow: hidden;
+  color: #fff;
+  background:
+    linear-gradient(166deg, rgba(255, 255, 255, .22), rgba(255, 255, 255, .06) 30%, rgba(255, 255, 255, 0) 58%),
+    rgba(56, 59, 65, .6);
+  border: 1px solid rgba(255, 255, 255, .42);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, .35) inset, 0 34px 60px -30px rgba(0, 0, 0, .7), 0 10px 20px -12px rgba(0, 0, 0, .35);
+}
+.ps-chrome { flex: none; }
+.ps-bars { display: flex; gap: .22em; }
+.ps-bars i { flex: 1; height: max(2px, .14em); border-radius: 2px; background: rgba(255, 255, 255, .34); overflow: hidden; }
+.ps-bars b { display: block; height: 100%; background: #fff; transform-origin: 0 50%; transform: scaleX(0); }
+/* still state: every story has been watched up to and including itself */
+.ps-s1 .ps-bars i:nth-child(-n+1) b, .ps-s2 .ps-bars i:nth-child(-n+2) b, .ps-s3 .ps-bars i:nth-child(-n+3) b,
+.ps-s4 .ps-bars i:nth-child(-n+4) b, .ps-s5 .ps-bars i:nth-child(-n+5) b, .ps-s6 .ps-bars i:nth-child(-n+6) b { transform: none; }
+
+.ps-who { display: flex; align-items: center; gap: .55em; margin-top: .75em; font-size: .8em; line-height: 1; white-space: nowrap; }
+.ps-av { width: 2.4em; height: 2.4em; border-radius: 50%; flex: none; box-shadow: 0 0 0 1.5px rgba(255, 255, 255, .55); }
+.ps-who b { font-weight: 600; letter-spacing: -.01em; }
+.ps-who small { font-size: 1em; color: rgba(255, 255, 255, .78); }
+.ps-more { margin-left: auto; width: 1.45em; height: .32em; background: radial-gradient(circle, #fff 55%, transparent 62%) 0 50% / .5em .32em repeat-x; }
+
+.ps-num { flex: none; margin-top: .5em; font-size: 6.4em; font-weight: 700; letter-spacing: -.065em; line-height: .82; }
+.ps-t { flex: none; margin-top: .3em; font-size: 1.6em; font-weight: 500; letter-spacing: -.025em; line-height: 1.08; }
+.ps-line { flex: none; margin-top: .45em; font-size: max(15px, 1em); line-height: 1.35; color: rgba(251, 250, 247, .88); }
+
+.ps-art { flex: 1; min-height: 0; position: relative; display: grid; place-items: center; }
+.ps-st { position: relative; width: 18em; height: 11.5em; flex: none; }
+
+.ps-foot { flex: none; display: flex; align-items: center; gap: .7em; }
+.ps-msg { flex: 1; min-width: 0; padding: .72em 1.1em; border: 1px solid rgba(255, 255, 255, .62); border-radius: 999px; font-size: .78em; line-height: 1; color: rgba(255, 255, 255, .92); white-space: nowrap; }
+.ps-foot .ig-ic { flex: none; width: 1.5em; height: 1.5em; color: #fff; }
+
+.ps-shade { position: absolute; inset: 0; z-index: 2; border-radius: inherit; background: rgb(40, 42, 47); opacity: 0; pointer-events: none; }
+.ps-go { position: absolute; inset: 0; z-index: 3; border-radius: 1.05em; cursor: pointer; }
+.ps-go:focus-visible { outline: 2px solid var(--ig-magenta); outline-offset: 4px; }
+
+/* ---------- stickers (positions in em inside an 18em x 11.5em stage) ----------
+   .ps-at-* wrappers own the position and the tilt; GSAP only ever animates the element inside,
+   so a tween can never wipe the tilt. */
+.ps-at { position: absolute; display: block; }
+.ps-at > * { display: block; }
+.ps-spark { position: absolute; width: 2.8em; height: 2.8em; overflow: visible; }
+.ps-spark path { fill: none; stroke: var(--ig-magenta); stroke-width: 3.6; stroke-linecap: round; stroke-dasharray: 1; stroke-dashoffset: 0; }
+
+/* 01 brief: doc, link, voice note */
+.ps-at-doc { left: 1.4em; top: .9em; rotate: -8deg; }
+.ps-doc {
+  width: 8.4em; height: 9.6em; padding: 1.4em 1.1em;
+  display: flex; flex-direction: column; gap: .7em;
+  border-radius: .7em; background: #f3f3f1;
+  box-shadow: 0 1.2em 1.8em -1em rgba(0, 0, 0, .55);
+}
+.ps-doc i { display: block; height: .5em; border-radius: .3em; background: #c8cace; }
+.ps-doc i:nth-child(2) { width: 80%; }
+.ps-doc i:nth-child(4) { width: 62%; }
+.ps-doc i:nth-child(5) { width: 40%; background: #dcdde0; }
+.ps-at-link { right: 1.4em; top: .4em; rotate: 9deg; }
+.ps-link {
+  width: 4.8em; height: 4.8em; display: grid; place-items: center;
+  border-radius: 1.1em; background: #fff; box-shadow: 0 1em 1.6em -.9em rgba(0, 0, 0, .55);
+}
+.ps-link svg, .ps-mic svg { width: 56%; height: 56%; fill: none; stroke: var(--ig-denim); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.ps-mic {
+  position: absolute; left: 7.2em; top: 5.6em; width: 5em; height: 5em; display: grid; place-items: center;
+  border-radius: 50%; background: var(--ig-denim); box-shadow: 0 0 0 .3em rgba(255, 255, 255, .9), 0 1.2em 1.6em -.9em rgba(0, 0, 0, .6);
+}
+.ps-mic svg { stroke: #fff; }
+.ps-spark.ps-k1 { right: 4.9em; top: 3.4em; rotate: 30deg; }
+
+/* 02 quote + clock */
+.ps-at-quote { left: 1em; top: .6em; rotate: -6deg; }
+.ps-quote {
+  width: 12.6em; height: 9em; overflow: hidden;
+  border-radius: .7em; background: #f3f3f1;
+  box-shadow: 0 1.2em 1.8em -1em rgba(0, 0, 0, .55);
+}
+.ps-quote b { display: block; padding: .62em 1em; background: var(--ig-denim); color: #fff; font-size: .95em; font-weight: 700; letter-spacing: .1em; }
+.ps-quote i { display: block; height: .55em; margin: .9em 1.1em 0; border-radius: .3em; background: #c8cace; transform-origin: 0 50%; }
+.ps-quote i:nth-of-type(2) { width: 58%; }
+.ps-quote i:nth-of-type(3) { width: 70%; }
+.ps-quote i:nth-of-type(4) { width: 34%; background: var(--ig-magenta); opacity: .85; }
+.ps-clock {
+  position: absolute; right: 1.4em; bottom: .2em; width: 5.4em; height: 5.4em;
+  border-radius: 50%; background: #fff; border: .36em solid var(--ig-card-text);
+  box-shadow: 0 1.2em 1.6em -.9em rgba(0, 0, 0, .6);
+}
+.ps-clock::after { content: ""; position: absolute; left: 50%; top: 50%; width: .5em; height: .5em; margin: -.25em; border-radius: 50%; background: var(--ig-card-text); }
+.ps-clock i { position: absolute; left: 50%; bottom: 50%; width: .3em; margin-left: -.15em; border-radius: .2em; background: var(--ig-card-text); transform-origin: 50% 100%; }
+.ps-hh { height: 1.15em; rotate: 120deg; } /* never animated: the hour hand rests on 4 */
+.ps-mh { height: 1.75em; }
+.ps-spark.ps-k2 { right: .5em; top: 2.9em; }
+
+/* 03 the PAID sticker */
+.ps-at-paid { left: 50%; top: 50%; translate: -50% -50%; rotate: -9deg; }
+.ps-paid {
+  padding: .02em .3em .06em; border: .09em solid #fff; border-radius: .2em;
+  background: var(--ig-magenta); color: #fff;
+  font-size: 4.8em; font-weight: 700; letter-spacing: -.03em; line-height: 1; white-space: nowrap;
+  box-shadow: 0 .25em .4em -.2em rgba(0, 0, 0, .5);
+}
+.ps-spark.ps-k3a { right: .6em; bottom: .2em; }
+.ps-spark.ps-k3b { left: .6em; top: .3em; }
+
+/* 04 draft */
+.ps-at-draft { left: .9em; top: 1.4em; rotate: -4deg; }
+.ps-draft {
+  width: 15em; padding: .45em;
+  border-radius: .7em; background: #f3f3f1;
+  box-shadow: 0 1.2em 1.8em -1em rgba(0, 0, 0, .6);
+}
+.ps-draft img { display: block; width: 100%; aspect-ratio: 16 / 9; height: auto; object-fit: cover; border-radius: .4em; }
+.ps-at-tag { right: .75em; top: -.15em; rotate: 9deg; }
+.ps-tag {
+  position: relative;
+  padding: .3em .6em; border-radius: .4em; background: #fff; color: var(--ig-magenta);
+  font-size: 1.25em; font-weight: 700; letter-spacing: .08em; line-height: 1;
+  box-shadow: 0 .6em 1em -.6em rgba(0, 0, 0, .55);
+}
+.ps-tag svg { position: absolute; left: -32%; top: -48%; width: 164%; height: 196%; overflow: visible; pointer-events: none; }
+.ps-tag path { fill: none; stroke: var(--ig-magenta); stroke-width: 3.4; stroke-linecap: round; stroke-dasharray: 1; stroke-dashoffset: 0; }
+
+/* 05 two comments, then two ticks */
+.ps-at > .ps-cmt { display: grid; }
+.ps-cmt {
+  position: relative; grid-template-columns: auto auto; justify-content: start; column-gap: .55em; row-gap: .25em;
+  padding: .75em 1.05em .8em; border-radius: 1em; background: #fff; color: var(--ig-card-text);
+  font-size: .95em; line-height: 1.15; white-space: nowrap;
+  box-shadow: 0 1.1em 1.6em -1em rgba(0, 0, 0, .55);
+}
+.ps-cmt b { font-weight: 600; }
+.ps-cmt small { font-size: .78em; color: var(--ig-card-soft); align-self: center; }
+.ps-cmt span { grid-column: 1 / -1; color: #33363c; }
+.ps-at-c1 { left: .3em; top: .55em; rotate: -4deg; }
+.ps-at-c2 { right: .3em; top: 5.1em; rotate: 3deg; }
+.ps-ok {
+  position: absolute; right: -.55em; top: -.55em; width: 1.75em; height: 1.75em; border-radius: 50%;
+  background: var(--ig-magenta) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5.5 12.5l4.2 4.2 8.8-9.4'/%3E%3C/svg%3E") center / 64% no-repeat;
+  box-shadow: 0 0 0 .16em #fff;
+}
+.ps-spark.ps-k5 { right: 1em; top: .2em; }
+
+/* 06 the files */
+.ps-file {
+  padding: .2em .42em .26em; border-radius: .26em;
+  font-size: 2.3em; font-weight: 700; letter-spacing: -.03em; line-height: 1;
+  box-shadow: 0 .5em .7em -.45em rgba(0, 0, 0, .6);
+}
+.ps-at-ai { left: 1.25em; top: 1em; rotate: -8deg; }
+.ps-at-psd { right: 1.15em; top: 1.95em; rotate: 7deg; }
+.ps-at-mp4 { left: 5.5em; top: 6.3em; rotate: -4deg; }
+.ps-file.ps-ai { background: var(--ig-denim); color: #fff; }
+.ps-file.ps-psd { background: #fff; color: var(--ig-denim); }
+.ps-file.ps-mp4 { background: var(--ig-magenta); color: #fff; }
+.ps-spark.ps-k6 { left: .2em; top: 6.4em; }
+
+/* ---------- the end of the stories ---------- */
+.ps-end { position: relative; z-index: 3; }
+/* a white sticker edge keeps the magenta button readable where it crosses the magenta brush */
+.ps-end .ig-btn { padding: 14px 24px 14px 18px; box-shadow: 0 0 0 3px #fff, 0 18px 32px -14px rgba(0, 0, 0, .6); }
+.ps-end .ig-btn:hover { box-shadow: 0 0 0 3px #fff, 0 24px 38px -14px rgba(0, 0, 0, .65); }
+.ps-end .ig-ic { width: 20px; height: 20px; }
+
+/* =====================================================================
+   DESKTOP
+   ===================================================================== */
+@media (min-width: 761px) and (min-height: 561px) {
+  /* still layout: three by two */
+  .ps-reel {
+    --ps-w: clamp(268px, 22vw, 330px);
+    display: grid; grid-template-columns: repeat(3, var(--ps-w)); justify-content: center;
+    gap: clamp(22px, 2.4vw, 36px); margin-top: clamp(44px, 6vh, 72px); padding: 0 24px;
+  }
+  .ps-end { margin-top: clamp(40px, 6vh, 64px); text-align: center; }
+
+  /* live: one pinned stage, the stories laid out by process.js */
+  .ps.ps-live .ps-pin { height: 100vh; height: 100svh; padding: 0; }
+  .ps.ps-live .ps-head { position: absolute; left: 0; right: 0; top: var(--ps-head, 96px); }
+  .ps.ps-live .ps-reel { --ps-w: inherit; display: block; position: absolute; left: 0; right: 0; top: var(--ps-top, 260px); height: calc(var(--ps-w) * 16 / 9); margin: 0; padding: 0; }
+  .ps.ps-live .ps-story { position: absolute; left: 50%; top: 0; margin-left: calc(var(--ps-w) / -2); transition: translate .45s var(--ig-ease); }
+  .ps.ps-live .ps-story:not(.is-active):hover { translate: 0 -.5em; }
+  .ps.ps-live .ps-story.is-active .ps-go { pointer-events: none; }
+  .ps.ps-live .ps-end {
+    position: absolute; margin: 0; left: calc(50% + var(--ps-w) / 2 + var(--ps-w) * .2); top: calc(var(--ps-top, 260px) + var(--ps-w) * 8 / 9);
+    height: 0; display: flex; align-items: center; visibility: hidden; opacity: 0;
+  }
+  .ps.ps-live .ps-brush-m { top: 33%; }
+  .ps.ps-live .ps-brush-d { top: 28%; }
+}
+@media (min-width: 1960px) and (min-height: 561px) {
+  .ps-reel { grid-template-columns: repeat(6, var(--ps-w)); }
+}
+
+/* =====================================================================
+   PHONES (and very short landscape screens): a swipe row
+   ===================================================================== */
+@media (max-width: 760px), (max-height: 560px) {
+  .ps-pin { padding: 104px 0 76px; }
+  .ps .ps-h { font-size: clamp(38px, 11.5vw, 60px); }
+  .ps-reel {
+    --ps-w: min(82vw, 340px);
+    display: flex; gap: 12px; margin-top: 30px;
+    padding: 6px calc((100% - var(--ps-w)) / 2) 14px;
+    overflow-x: auto; overflow-y: hidden; scroll-snap-type: x mandatory; overscroll-behavior-x: contain;
+    scrollbar-width: none; -webkit-overflow-scrolling: touch;
+  }
+  .ps-reel::-webkit-scrollbar { display: none; }
+  .ps-story { flex: none; scroll-snap-align: center; scroll-snap-stop: always; }
+  .ps-swipe .ps-story .ps-shade { transition: opacity .45s var(--ig-ease); }
+  .ps-swipe .ps-story:not(.is-active) .ps-shade { opacity: .42; }
+  .ps-swipe .ps-card { -webkit-tap-highlight-color: transparent; cursor: pointer; user-select: none; -webkit-user-select: none; }
+  .ps-end { margin-top: 18px; text-align: center; }
+  @media (prefers-reduced-motion: reduce) { .ps-swipe .ps-story .ps-shade { transition: none; } }
+  .ps-brush-m { width: 190vw; left: -60vw; top: 34%; }
+  .ps-brush-d { width: 170vw; right: -70vw; top: 46%; }
+}

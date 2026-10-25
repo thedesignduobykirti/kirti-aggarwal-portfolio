@@ -1,0 +1,122 @@
+/* close section overrides (v2, Oct 13)
+   reviews (.qs/.qt), FAQ (.fq-), brief form (.bf-), find me (.fm-), footer (.ft).
+   Colours come from the palette vars only, so a palette swap carries through. */
+
+/* ---------- client reviews ---------- */
+.qs { position: relative; z-index: 1; padding: clamp(110px, 16vh, 180px) clamp(20px, 4.4vw, 64px) clamp(60px, 9vh, 110px); }
+.qs .qt { margin-bottom: 0; }
+.qt-stage { touch-action: pan-y; }
+.qt-nav { align-items: center; gap: 18px; }
+.qt-dots { display: flex; gap: 10px; }
+.qt-dot { background: color-mix(in srgb, var(--cocoa) 16%, transparent); }
+.qt-arrow {
+  display: grid; place-items: center; flex: none; width: 44px; height: 44px; border-radius: 50%;
+  border: 1.5px solid color-mix(in srgb, var(--cocoa) 24%, transparent); color: var(--cocoa);
+  transition: background .3s var(--ease), color .3s var(--ease), border-color .3s var(--ease), scale .2s var(--ease);
+}
+.qt-arrow svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; transition: translate .4s var(--ease); }
+@media (hover: hover) { .qt-arrow:hover { background: var(--cocoa); color: var(--cream); border-color: var(--cocoa); } }
+@media (hover: hover) { .qt-prev:hover svg { translate: -2px 0; } }
+@media (hover: hover) { .qt-next:hover svg { translate: 2px 0; } }
+.qt-arrow:active { scale: .92; }
+.qt-arrow:focus-visible, .qt-dot:focus-visible { outline: 3px solid var(--cocoa); outline-offset: 3px; }
+
+/* ---------- FAQ ---------- */
+.fq { position: relative; z-index: 1; padding: clamp(60px, 9vh, 110px) clamp(20px, 4.4vw, 64px) clamp(20px, 4vh, 60px); }
+.fq-grid { display: grid; grid-template-columns: .8fr 1.2fr; gap: clamp(30px, 5vw, 90px); align-items: start; max-width: 1400px; margin: 0 auto; }
+.fq-title, .fm-title { font-weight: 900; letter-spacing: -.035em; line-height: .95; font-size: clamp(42px, 5.6vw, 96px); }
+.fq-title .line, .fm-title .line { display: block; overflow: hidden; padding-bottom: .08em; }
+.fq-w, .fm-w { display: inline-block; }
+.fq-title em, .fm-title em { font-family: "Nunito", system-ui, sans-serif; font-style: normal; font-weight: 700;  padding-right: .06em; }
+.fq-sub { margin-top: 20px; font-size: clamp(15px, 1.2vw, 19px); font-weight: 600; line-height: 1.45; color: var(--cocoa-soft); max-width: 28ch; }
+.fq-list { border-top: 1.5px solid color-mix(in srgb, var(--cocoa) 20%, transparent); }
+.fq-item { border-bottom: 1.5px solid color-mix(in srgb, var(--cocoa) 14%, transparent); }
+.fq-item h3 { font: inherit; }
+.fq-q {
+  display: flex; align-items: center; justify-content: space-between; gap: 20px; width: 100%;
+  padding: clamp(18px, 2.6vh, 26px) 0; text-align: left;
+  font-weight: 800; font-size: clamp(18px, 1.55vw, 24px); letter-spacing: -.01em; line-height: 1.25;
+}
+.fq-q > span { transition: translate .5s var(--ease); }
+@media (hover: hover) { .fq-q:hover > span { translate: 6px 0; } }
+.fq-q:focus-visible { outline: 3px solid var(--cocoa); outline-offset: 4px; border-radius: 8px; }
+.fq-ico {
+  position: relative; flex: none; width: 38px; height: 38px; border-radius: 50%;
+  border: 1.5px solid color-mix(in srgb, var(--cocoa) 24%, transparent);
+  transition: background .35s var(--ease), color .35s var(--ease), border-color .35s var(--ease), rotate .6s var(--ease);
+}
+.fq-ico::before, .fq-ico::after { content: ""; position: absolute; left: 50%; top: 50%; width: 14px; height: 2px; margin: -1px 0 0 -7px; border-radius: 2px; background: currentColor; transition: rotate .6s var(--ease); }
+.fq-ico::after { rotate: 90deg; }
+@media (hover: hover) { .fq-q:hover .fq-ico { border-color: var(--cocoa); } }
+.fq-item.is-open .fq-ico { background: var(--cocoa); color: var(--cream); border-color: var(--cocoa); rotate: 180deg; }
+.fq-item.is-open .fq-ico::after { rotate: 0deg; }
+.fq.is-ready .fq-a { height: 0; overflow: hidden; visibility: hidden; }
+.fq-a p { padding: 0 clamp(0px, 4vw, 64px) clamp(20px, 3vh, 28px) 0; font-size: clamp(15px, 1.15vw, 18px); font-weight: 500; line-height: 1.55; color: var(--cocoa-soft); max-width: 60ch; }
+
+/* ---------- brief form: budget hint + thank-you card ---------- */
+.bf-box { position: relative; min-width: 0; }
+.bf-form[hidden], .bf-done[hidden] { display: none; }
+.bf-hp { width: 1px; height: 1px; overflow: hidden; }
+.bf-row2 { align-items: start; }
+.bf-hint { margin-top: 10px; font-size: 13px; font-weight: 600; line-height: 1.4; color: var(--cocoa-soft); }
+.bf-done {
+  display: grid; place-content: center; justify-items: center; gap: 14px; text-align: center;
+  padding: clamp(30px, 4vw, 56px); border-radius: 24px;
+  background: color-mix(in srgb, var(--cream) 82%, transparent);
+  border: 1px solid color-mix(in srgb, var(--cocoa) 14%, transparent);
+  box-shadow: 0 30px 70px -50px color-mix(in srgb, var(--cocoa) 70%, transparent);
+}
+.bf-done:focus { outline: none; }
+.bf-done-tick { width: 72px; height: 72px; margin-bottom: 6px; fill: none; stroke: var(--cocoa); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+.bf-done-tick circle, .bf-done-tick path { stroke-dasharray: 1; stroke-dashoffset: 0; }
+.bf-done-tick circle { stroke-opacity: .28; }
+.bf-done-title { font-weight: 900; font-size: clamp(26px, 2.6vw, 40px); letter-spacing: -.025em; line-height: 1.08; max-width: 18ch; text-wrap: balance; }
+.bf-done-text { font-size: clamp(15px, 1.2vw, 18px); font-weight: 600; line-height: 1.5; color: var(--cocoa-soft); max-width: 36ch; overflow-wrap: anywhere; }
+.bf-again { margin-top: 8px; padding: 12px 22px; border-radius: 999px; border: 1.5px solid color-mix(in srgb, var(--cocoa) 26%, transparent); font-weight: 800; font-size: 14.5px; transition: background .3s var(--ease), color .3s var(--ease), border-color .3s var(--ease); }
+.bf-again:hover { background: var(--cocoa); color: var(--cream); border-color: var(--cocoa); }
+.bf-again:focus-visible { outline: 3px solid var(--cocoa); outline-offset: 3px; }
+
+/* ---------- find me: dark band that runs into the footer ---------- */
+.fm { position: relative; z-index: 1; background: var(--cocoa); color: var(--cream); padding: clamp(80px, 12vh, 140px) clamp(20px, 4.4vw, 64px) clamp(30px, 5vh, 60px); }
+.fm-title { max-width: 1400px; margin: 0 auto clamp(30px, 5vh, 56px); }
+.fm-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(12px, 1.4vw, 22px); max-width: 1400px; margin: 0 auto; }
+.fm-card { display: block; border-radius: 24px; }
+.fm-card:focus-visible { outline: 3px solid var(--cream); outline-offset: 4px; }
+.fm-in {
+  position: relative; display: flex; flex-direction: column; gap: 6px; height: 100%;
+  min-height: clamp(240px, 32vh, 320px); padding: clamp(22px, 2.2vw, 34px); border-radius: 24px; overflow: hidden;
+  background: color-mix(in srgb, var(--cream) 7%, transparent);
+  border: 1px solid color-mix(in srgb, var(--cream) 18%, transparent);
+  transition: background .4s var(--ease), border-color .4s var(--ease);
+}
+.fm-in::before {
+  content: ""; position: absolute; inset: 0; pointer-events: none; opacity: 0; transition: opacity .4s var(--ease);
+  background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 0%), color-mix(in srgb, var(--cream) 16%, transparent), transparent 62%);
+}
+@media (hover: hover) {
+  .fm-card:hover .fm-in { background: color-mix(in srgb, var(--cream) 11%, transparent); border-color: color-mix(in srgb, var(--cream) 36%, transparent); }
+  .fm-card:hover .fm-in::before { opacity: 1; }
+  .fm-card:hover .fm-logo { rotate: -8deg; scale: 1.08; }
+  .fm-card:hover .fm-go { translate: 3px -3px; opacity: 1; }
+}
+.fm-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: auto; padding-bottom: clamp(26px, 5vh, 56px); }
+.fm-logo { width: clamp(40px, 3.4vw, 54px); height: auto; fill: currentColor; transition: rotate .6s var(--ease), scale .6s var(--ease); }
+.fm-go { width: 26px; height: 26px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; opacity: .55; transition: translate .5s var(--ease), opacity .3s var(--ease); }
+.fm-plat { font-size: 13px; font-weight: 800; color: color-mix(in srgb, var(--cream) 70%, transparent); }
+.fm-handle { font-weight: 900; font-size: clamp(22px, 2vw, 32px); letter-spacing: -.02em; line-height: 1.1; overflow-wrap: anywhere; }
+.fm-desc { margin-top: 6px; font-size: clamp(14px, 1.05vw, 16.5px); font-weight: 600; line-height: 1.5; color: color-mix(in srgb, var(--cream) 78%, transparent); max-width: 34ch; }
+
+/* footer sits on the same cocoa band, so it needs less air on top */
+.fm + .ft { padding-top: clamp(20px, 4vh, 50px); }
+
+@media (max-width: 900px) {
+  .fq-grid { grid-template-columns: 1fr; }
+  .fm-grid { grid-template-columns: 1fr; }
+  .fm-in { min-height: 0; }
+  .fm-top { padding-bottom: 28px; }
+}
+@media (max-width: 560px) {
+  .qt-nav { gap: 12px; }
+  .qt-arrow { width: 42px; height: 42px; }
+  .qt-dot { width: 34px; }
+}

@@ -1,0 +1,67 @@
+/* Oct 25: light + dark mode, from Kirti's two references.
+   Light: white with soft blue blobs, navy type, navy buttons.
+   Dark: textured denim, white type, white buttons with navy text.
+   --cocoa = ink (text, buttons), --cream = surface (page, text on buttons). */
+:root, html[data-theme="light"] {
+  --cocoa: #031945;
+  --cocoa-soft: #5a6b83;
+  --cream: #ffffff;
+  color-scheme: light;
+}
+html[data-theme="light"] body { background: #fff; }
+
+html[data-theme="dark"] {
+  --cocoa: #ffffff;
+  --cocoa-soft: rgba(255, 255, 255, .76);
+  --cream: #01203d;
+  color-scheme: dark;
+}
+html[data-theme="dark"] body { background: #01203d url(../assets/denim.jpg) center top / 1174px 2560px repeat fixed; }
+html[data-theme="dark"] .atmos .mesh, html[data-theme="dark"] .atmos .blob { display: none !important; }
+html[data-theme="dark"] .grain { opacity: .03; }
+/* white surfaces (cards, form panels) keep dark text in dark mode */
+html[data-theme="dark"] .bf-form, html[data-theme="dark"] .qt, html[data-theme="dark"] .wk-view .wk-panel { --cocoa: #031945; --cocoa-soft: #5a6b83; --cream: #ffffff; }
+
+/* the toggle: sun in dark mode, moon in light mode */
+.mode-tg {
+  position: relative; width: 34px; height: 34px; margin-left: 4px; border-radius: 50%;
+  display: inline-grid; place-items: center; color: var(--cocoa);
+  box-shadow: inset 0 0 0 1.5px currentColor; opacity: .85;
+  transition: opacity .3s, transform .5s cubic-bezier(.16, 1, .3, 1);
+}
+.nav nav { align-items: center; }
+
+/* switching modes eases instead of flashing */
+html.mode-anim, html.mode-anim * { transition: background-color .5s ease, color .5s ease, border-color .5s ease !important; }
+
+/* ---------- dark mode: light surfaces keep navy text ---------- */
+html[data-theme="dark"] .reel,
+html[data-theme="dark"] .chip,
+html[data-theme="dark"] .sound,
+html[data-theme="dark"] .badge,
+html[data-theme="dark"] .passport,
+html[data-theme="dark"] .card-cap .wk-x,
+html[data-theme="dark"] .bf-copy-s { --cocoa: #031945; --cocoa-soft: #5a6b83; --cream: #ffffff; color: #031945; }
+html[data-theme="dark"] .reel { background: #fff; }
+/* words around the reel sit on black: always white */
+.hero.dark .reel-head, .hero .reel-head { color: inherit; }
+html[data-theme="dark"] .hero.dark .reel-head, html[data-theme="light"] .hero.dark .reel-head { color: #fff; }
+html[data-theme="light"] .hero.dark .proof { color: rgba(255, 255, 255, .88); }
+/* filter chips on denim: glass instead of cream */
+html[data-theme="dark"] .wk-chip { background: rgba(255, 255, 255, .1); box-shadow: inset 0 0 0 1.5px rgba(255, 255, 255, .28); color: #fff; }
+html[data-theme="dark"] .wk-chip[aria-pressed="true"] { background: #fff; color: #031945; }
+/* the process stage is always denim with white type, in both modes */
+.mo { --cream: #ffffff; color: #fff; }
+.mo .mo-cta { background: #fff; color: #031945; }
+
+/* ---------- details from the reference screenshots ---------- */
+/* reel button: a plain navy circle with a white play icon */
+.reel .thumb { background: #031945; }
+.reel .thumb img, .reel .thumb::after { display: none; }
+.reel .tri { border-left-color: #fff !important; }
+/* nav name: small and bold, like the reference */
+.nav .name { font-size: clamp(15px, 1.15vw, 18px) !important; font-weight: 800 !important; letter-spacing: -.01em !important; }
+.nav .where { font-size: clamp(12px, .95vw, 14px) !important; margin-top: 2px !important; }
+.nav nav { font-size: clamp(13px, 1vw, 15px); }
+.nav.nv-ready nav a:not([aria-current]):not(:hover) { color: var(--cocoa) !important; opacity: .92; }
+.nav nav a { font-weight: 600; }

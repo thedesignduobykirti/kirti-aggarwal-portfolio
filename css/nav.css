@@ -1,0 +1,53 @@
+/* nav section overrides (v2, Oct 13) */
+/* One underline (.nv-bar) slides to the link of the section in view; nav.js moves it. */
+
+.nav nav { position: relative; align-items: baseline; }
+.nv-list { display: contents; }
+.nv-menu { display: none; }
+
+/* the old per-link underlines only show on hover now, faintly; "Say hello" no longer keeps one */
+.nav nav a::after { opacity: .3; }
+.nav nav .hello::after { transform: scaleX(0); transform-origin: right; }
+.nav nav .hello:hover::after { transform: scaleX(1); transform-origin: left; }
+.nav nav a[aria-current]::after { opacity: 0; }
+
+.nv-bar {
+  position: absolute; left: 0; bottom: -3px; width: 0; height: 2px; border-radius: 2px;
+  background: var(--cocoa); pointer-events: none;
+  opacity: 0; transition: opacity .4s var(--ease);
+}
+.nav.nv-ready .nv-bar { opacity: 1; }
+
+.nav nav a, .nv-menu { transition: color .4s var(--ease); }
+.nav.nv-ready nav a:not([aria-current]):not(:hover) { color: var(--cocoa-soft); }
+.nav.nv-ready nav .hello:not([aria-current]):not(:hover) { color: var(--cocoa); }
+
+/* ---------- phones: the section links fold into a small menu that names the section you're in ---------- */
+@media (max-width: 720px) {
+  .nav nav { align-items: center; gap: 18px; padding-top: 0; }
+  .nv-menu {
+    display: inline-flex; align-items: center; gap: 7px;
+    font: inherit; font-weight: 700; color: var(--cocoa);
+    padding: 6px 0;
+  }
+  .nv-cur { display: inline-block; }
+  .nv-menu i {
+    width: 7px; height: 7px; margin-top: -4px;
+    border-right: 2px solid currentColor; border-bottom: 2px solid currentColor;
+    rotate: 45deg; transition: rotate .45s var(--ease), margin .45s var(--ease);
+  }
+  .nav.nv-open .nv-menu i { rotate: -135deg; margin-top: 3px; }
+  .nv-menu:focus-visible { outline: 3px solid var(--cocoa); outline-offset: 4px; border-radius: 4px; }
+
+  .nv-list {
+    display: grid; gap: 2px; position: absolute; top: calc(100% + 14px); right: -10px; min-width: 190px;
+    padding: 8px; border-radius: 18px;
+    background: rgba(255, 252, 249, .97); box-shadow: 0 24px 50px -24px rgba(6, 18, 44, .45), 0 0 0 1px rgba(3, 25, 69, .08);
+    opacity: 0; visibility: hidden; translate: 0 -8px;
+    transition: opacity .3s var(--ease), translate .45s var(--ease), visibility 0s linear .3s;
+  }
+  .nav.nv-open .nv-list { opacity: 1; visibility: visible; translate: 0 0; transition-delay: 0s; }
+  .nav nav .nv-list a { display: block; padding: 11px 14px; border-radius: 12px; font-size: 16px; }
+  .nav nav .nv-list a::after { display: none; }
+  .nav nav .nv-list a[aria-current] { background: rgba(150, 190, 240, .45); color: var(--cocoa); }
+}

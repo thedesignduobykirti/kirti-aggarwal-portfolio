@@ -1,0 +1,319 @@
+/* =====================================================================
+   Selected work as Instagram posts (IG rebuild, Oct 13). Lane prefix: wp-
+   Base (phones, short screens, reduced motion): a native swipe row with snap.
+   .wp-pinned (desktop): the heading and the posts ride one rail that slides with
+   the scroll. Posts lean as they come in and stand straight as they pass the centre
+   (work.js writes --wp-tilt and --wp-dy). Hover lifts a post and straightens it.
+   ===================================================================== */
+@property --wp-tilt { syntax: "<angle>"; inherits: false; initial-value: 0deg; }
+@property --wp-dy { syntax: "<length>"; inherits: false; initial-value: 0px; }
+@property --wp-hov { syntax: "<number>"; inherits: false; initial-value: 0; }
+
+.wp {
+  position: relative; z-index: 1;
+  padding: clamp(84px, 12vh, 140px) 0 clamp(60px, 9vh, 110px);
+  --wp-pad: clamp(20px, 4.4vw, 64px);
+  --wp-gap: clamp(18px, 2.6vw, 44px);
+  --wp-cw: min(78vw, 340px);
+}
+
+/* ---------- base: everything stacks, the posts are a swipe row ---------- */
+.wp-pin { position: relative; display: flex; flex-direction: column; overflow-x: clip; } /* the brush is wider than the screen */
+.wp-rail { display: contents; }
+.wp-side { order: 1; position: relative; z-index: 2; padding: 0 var(--wp-pad); }
+.wp-note { order: 2; }
+.wp-tabs { order: 3; }
+.wp-track { order: 4; }
+.wp-foot { order: 5; }
+
+/* heading block */
+.wp-kick {
+  display: flex; align-items: center; gap: 18px;
+  font-size: 15px; font-weight: 400; letter-spacing: .3em; color: var(--ig-text);
+}
+.wp-rule { flex: 1; max-width: 260px; height: 1px; background: var(--ig-text); opacity: .7; transform-origin: 0 50%; }
+.wp-h { margin-top: clamp(14px, 2.2vh, 26px); }
+.wp-h .fig-box { font-size: 1.2em; line-height: .92; margin-top: .05em; }
+.wp-lede {
+  max-width: 31ch; margin-top: clamp(20px, 3.2vh, 34px);
+  font-size: clamp(15px, 1.1vw, 17px); line-height: 1.5; font-weight: 400; color: var(--ig-text);
+}
+.wp-hint { display: flex; align-items: center; gap: 9px; margin-top: 12px; font-size: 15px; font-weight: 500; color: var(--ig-text); }
+.wp-hint .ig-ic { width: 19px; height: 19px; flex: none; }
+
+/* brush strokes sweep behind the posts */
+.wp-brush { z-index: 0; }
+.wp-b1 { left: -40%; top: 40%; width: 180%; }
+.wp-b2 { display: none; }
+.wp-b2 img { scale: -1 1; }
+
+/* the "@clients" notification */
+.wp-note { position: relative; z-index: 3; align-self: flex-end; margin: 26px var(--wp-pad) -4px 0; rotate: -2deg; }
+
+/* filters: plain text tabs, one underline slides to the active one */
+.wp-tabs {
+  position: relative; display: flex; gap: clamp(20px, 2.2vw, 32px);
+  margin-top: 22px; padding: 0 var(--wp-pad) 2px;
+  overflow-x: auto; scrollbar-width: none;
+}
+.wp-tabs::-webkit-scrollbar { display: none; }
+.wp-tab {
+  flex: none; position: relative; padding: 8px 0 10px;
+  font-size: 15px; font-weight: 500; letter-spacing: .01em; white-space: nowrap;
+  color: var(--ig-text-soft); transition: color .3s var(--ig-ease);
+}
+.wp-tab sup { font-size: 11px; font-weight: 500; margin-left: 3px; vertical-align: .55em; line-height: 0; opacity: .75; }
+.wp-tab:hover, .wp-tab[aria-pressed="true"] { color: var(--ig-text); }
+.wp-tab::after { /* no-JS underline; JS slides .wp-tab-ul instead */
+  content: ""; position: absolute; left: 0; right: 0; bottom: 4px; height: 1.5px;
+  background: currentColor; transform: scaleX(0); transform-origin: 0 50%;
+}
+.wp-tab[aria-pressed="true"]::after { transform: scaleX(1); }
+.wp-js .wp-tab::after { display: none; }
+.wp-tab-ul { position: absolute; left: 0; bottom: 6px; width: 0; height: 1.5px; background: var(--ig-text); pointer-events: none; }
+.wp-tab:focus-visible { outline-offset: 2px; }
+
+/* the row */
+.wp-track {
+  position: relative; z-index: 1; display: flex; align-items: center; gap: 18px;
+  margin-top: 4px; padding: 34px var(--wp-pad) 34px;
+  overflow-x: auto; scrollbar-width: none;
+  scroll-snap-type: x mandatory; scroll-padding-inline: var(--wp-pad);
+  overscroll-behavior-x: contain; -webkit-overflow-scrolling: touch;
+}
+.wp-track::-webkit-scrollbar { display: none; }
+
+/* ---------- the post ----------
+   .wp-post is the slot in the row (GSAP slides and fades it in and out).
+   .wp-card is the white frame inside; GSAP never touches it, so its CSS rotate/translate
+   stay live (GSAP folds those properties into its own transform on anything it animates). */
+.wp-post { flex: 0 0 var(--wp-cw); width: var(--wp-cw); min-width: 0; position: relative; scroll-snap-align: center; }
+.wp-post.wp-gone { display: none; }
+.wp-card {
+  position: relative; display: flex; flex-direction: column;
+  padding: 0 12px 15px; border-radius: 8px;
+  background: var(--ig-card); color: var(--ig-card-text);
+  box-shadow: 0 30px 50px -32px rgba(0, 0, 0, .6), 0 8px 16px -10px rgba(0, 0, 0, .28);
+  rotate: calc(var(--wp-tilt) * (1 - var(--wp-hov)));
+  translate: 0 calc(var(--wp-dy) * (1 - var(--wp-hov)) - var(--wp-hov) * 14px);
+  transition: --wp-hov .65s var(--ig-ease), box-shadow .65s var(--ig-ease);
+}
+.wp-post:nth-child(odd) .wp-card { --wp-tilt: -2deg; }
+.wp-post:nth-child(even) .wp-card { --wp-tilt: 2deg; }
+@media (hover: hover) {
+  .wp-post:hover .wp-card { --wp-hov: 1; box-shadow: 0 46px 70px -34px rgba(0, 0, 0, .62), 0 12px 22px -12px rgba(0, 0, 0, .3); }
+}
+.wp-post:has(:focus-visible) .wp-card { --wp-hov: 1; }
+.wp.wp-dragging .wp-post .wp-card { --wp-hov: 0; }
+
+.wp-top { display: flex; align-items: center; gap: 10px; height: 54px; }
+.wp-ava { flex: none; width: 32px; height: 32px; border-radius: 50%; box-shadow: 0 0 0 1px rgba(0, 0, 0, .08); }
+.wp-user { display: flex; align-items: center; gap: 4px; min-width: 0; font-size: 15px; font-weight: 600; letter-spacing: -.01em; }
+.wp-user .ig-ic { flex: none; width: 14px; height: 14px; }
+.wp-more {
+  flex: none; margin-left: auto; width: 18px; height: 4px; margin-right: 2px;
+  background: radial-gradient(circle, currentColor 1.5px, transparent 1.9px) 0 50% / 6px 4px repeat-x;
+}
+
+.wp-media {
+  position: relative; aspect-ratio: 4 / 5; overflow: hidden; border-radius: 3px;
+  background: #ececec; touch-action: manipulation;
+}
+.wp-media img {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  object-fit: cover; object-position: var(--wp-pos, 50% 50%);
+  user-select: none; -webkit-user-select: none; -webkit-user-drag: none;
+}
+.wp-open { position: absolute; inset: 0; z-index: 2; width: 100%; height: 100%; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+.wp-open:focus-visible { outline-offset: -5px; outline-color: #fff; box-shadow: inset 0 0 0 7px var(--ig-magenta); }
+.wp-burst { position: absolute; z-index: 3; left: 50%; top: 50%; width: 38%; pointer-events: none; opacity: 0; } /* GSAP centres it (xPercent/yPercent) */
+.wp-burst svg { display: block; width: 100%; height: auto; fill: #fff; filter: drop-shadow(0 10px 24px rgba(0, 0, 0, .3)); }
+
+.wp-acts { display: flex; align-items: center; margin: 6px -8px 2px; }
+.wp-act { display: grid; place-items: center; width: 40px; height: 40px; color: var(--ig-card-text); transition: opacity .2s; }
+.wp-act .ig-ic { width: 24px; height: 24px; }
+button.wp-act:hover { opacity: .55; }
+.wp-act:focus-visible { outline-offset: -2px; border-radius: 50%; }
+.wp-save { margin-left: auto; }
+.wp-liked, .wp-cap { font-size: 15px; line-height: 1.35; font-weight: 400; letter-spacing: 0; }
+.wp-liked b, .wp-cap b { font-weight: 600; }
+.wp-cap { margin-top: 3px; }
+.wp-cap b { margin-right: 3px; }
+
+/* counter, progress, arrows */
+.wp-foot { display: flex; align-items: center; gap: 18px; margin-top: 6px; padding: 0 var(--wp-pad); }
+.wp-count { flex: none; margin: 0; font-size: 15px; letter-spacing: .04em; color: var(--ig-text-soft); font-variant-numeric: tabular-nums; }
+.wp-count b { display: inline-block; font-weight: 600; color: var(--ig-text); }
+.wp-progress { position: relative; flex: 1; height: 1.5px; overflow: hidden; background: var(--ig-line); }
+.wp-progress i { position: absolute; inset: 0; background: var(--ig-text); transform-origin: 0 50%; transform: scaleX(.1667); }
+.wp-nav { display: flex; gap: 8px; flex: none; }
+.wp-arrow {
+  position: relative; width: 44px; height: 44px; border-radius: 50%;
+  color: var(--ig-text); box-shadow: inset 0 0 0 1px var(--ig-line);
+  transition: background .3s var(--ig-ease), color .3s var(--ig-ease), box-shadow .3s var(--ig-ease), opacity .3s;
+}
+.wp-arrow::after {
+  content: ""; position: absolute; left: 50%; top: 50%; width: 9px; height: 9px;
+  border-left: 1.5px solid currentColor; border-bottom: 1.5px solid currentColor;
+  transform: translate(-30%, -50%) rotate(45deg);
+}
+.wp-next::after { transform: translate(-70%, -50%) rotate(-135deg); }
+.wp-arrow:hover { background: var(--ig-card); color: var(--ig-card-text); box-shadow: none; }
+.wp-arrow:disabled { opacity: .35; pointer-events: none; }
+
+/* ---------- desktop: one rail, scroll-scrubbed ---------- */
+.wp.wp-pinned {
+  padding: 0;
+  --wp-top: clamp(128px, 15vh, 142px);
+  --wp-bot: clamp(92px, 11vh, 110px);
+  --wp-cw: clamp(250px, calc((100svh - var(--wp-top) - var(--wp-bot)) * .8 - 142px), min(420px, 30vw));
+}
+.wp.wp-pinned .wp-pin { display: block; height: 100svh; overflow: hidden; }
+.wp.wp-pinned .wp-rail {
+  display: flex; align-items: center; gap: var(--wp-gap);
+  position: absolute; left: 0; top: var(--wp-top); bottom: var(--wp-bot);
+  width: max-content; padding: 0 var(--wp-pad);
+  cursor: grab; touch-action: pan-y;
+}
+.wp.wp-pinned.wp-moving .wp-rail { will-change: transform; }
+.wp.wp-pinned.wp-dragging .wp-rail { cursor: grabbing; }
+.wp.wp-pinned.wp-dragging .wp-rail * { user-select: none; }
+.wp.wp-pinned .wp-side { flex: 0 0 clamp(340px, 31vw, 520px); padding: 0; margin-right: 1vw; }
+.wp.wp-pinned .wp-track {
+  display: flex; align-items: center; gap: var(--wp-gap);
+  margin: 0; padding: 0; overflow: visible; scroll-snap-type: none;
+}
+.wp.wp-pinned .wp-b1 { left: calc(var(--wp-pad) + 19vw); top: 50%; width: clamp(980px, 78vw, 1340px); translate: 0 -44%; }
+.wp.wp-pinned .wp-b2 { display: block; right: calc(var(--wp-pad) - 3vw); top: 50%; width: clamp(860px, 66vw, 1180px); translate: 0 -52%; }
+.wp.wp-pinned .wp-tabs {
+  position: absolute; z-index: 5; top: clamp(82px, 10.5vh, 98px); left: 0;
+  margin: 0; padding: 0 var(--wp-pad) 2px; overflow: visible;
+}
+.wp.wp-pinned .wp-note { position: absolute; z-index: 6; top: clamp(92px, 11.5vh, 112px); right: clamp(40px, 8vw, 150px); margin: 0; rotate: 1.5deg; }
+.wp.wp-pinned .wp-foot {
+  position: absolute; z-index: 5; left: 0; right: 0; bottom: clamp(26px, 4.5vh, 44px);
+  margin: 0; gap: 24px;
+}
+
+@media (max-width: 899px) {
+  .wp-h { font-size: clamp(46px, 13vw, 72px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .wp-card { transition: box-shadow .3s; }
+}
+
+/* =====================================================================
+   Post view: Instagram's desktop post page. Picture left, details right,
+   white card on a dimmed backdrop. Phones get a bottom sheet.
+   ===================================================================== */
+.wp-view {
+  position: fixed; inset: 0; z-index: 200;
+  display: grid; place-items: center;
+  --wp-vh: min(86svh, 760px, calc((88vw - 400px) / 1.25));
+  --wp-vw: calc(var(--wp-vh) * 1.25 + 400px);
+}
+.wp-view[hidden] { display: none; }
+.wp-scrim { position: absolute; inset: 0; background: rgba(0, 0, 0, .68); }
+.wp-panel {
+  position: relative; z-index: 1;
+  display: grid; grid-template-columns: calc(var(--wp-vh) * 1.25) 400px;
+  height: var(--wp-vh); border-radius: 8px; overflow: hidden;
+  background: var(--ig-card); color: var(--ig-card-text);
+  box-shadow: 0 40px 100px -30px rgba(0, 0, 0, .6);
+}
+.wp-vmedia { position: relative; min-width: 0; background: #000; overflow: hidden; }
+.wp-slides { display: flex; width: 100%; height: 100%; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; overscroll-behavior-x: contain; }
+.wp-slides::-webkit-scrollbar { display: none; }
+.wp-slide { position: relative; flex: 0 0 100%; height: 100%; scroll-snap-align: start; scroll-snap-stop: always; }
+.wp-slide img { display: block; width: 100%; height: 100%; object-fit: cover; user-select: none; -webkit-user-drag: none; }
+.wp-ph {
+  display: grid; place-items: center;
+  font-size: 15px; font-weight: 500; color: var(--ig-card-soft);
+  background: repeating-linear-gradient(-45deg, #f2f2f2 0 10px, #e9e9e9 10px 20px);
+}
+.wp-vmedia .wp-burst { width: 26%; }
+.wp-sl {
+  position: absolute; z-index: 3; top: 50%; width: 32px; height: 32px; margin-top: -16px; border-radius: 50%;
+  background: rgba(255, 255, 255, .9); color: var(--ig-card-text);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, .25); transition: opacity .3s, background .3s;
+}
+.wp-sl:hover { background: #fff; }
+.wp-sl::after {
+  content: ""; position: absolute; left: 50%; top: 50%; width: 7px; height: 7px;
+  border-left: 1.5px solid currentColor; border-bottom: 1.5px solid currentColor;
+  transform: translate(-30%, -50%) rotate(45deg);
+}
+.wp-sl-prev { left: 12px; }
+.wp-sl-next { right: 12px; }
+.wp-sl-next::after { transform: translate(-70%, -50%) rotate(-135deg); }
+.wp-dots { position: absolute; z-index: 3; left: 0; right: 0; bottom: 14px; display: flex; justify-content: center; gap: 5px; pointer-events: none; }
+.wp-dots i { width: 6px; height: 6px; border-radius: 50%; background: rgba(255, 255, 255, .55); box-shadow: 0 0 0 .5px rgba(0, 0, 0, .18), 0 1px 3px rgba(0, 0, 0, .3); transition: background .3s; }
+.wp-dots i.on { background: #fff; }
+
+.wp-vside { display: flex; flex-direction: column; min-width: 0; min-height: 0; border-left: 1px solid #efefef; }
+.wp-vtop { display: flex; align-items: center; gap: 12px; padding: 14px 16px; border-bottom: 1px solid #efefef; }
+.wp-vpos { margin-left: auto; font-size: 15px; color: var(--ig-card-soft); font-variant-numeric: tabular-nums; }
+.wp-vbody { flex: 1; min-height: 0; overflow-y: auto; overscroll-behavior: contain; padding: 18px 16px 20px; }
+.wp-vcap { display: grid; grid-template-columns: 32px minmax(0, 1fr); gap: 12px; }
+.wp-vline { font-size: 15px; line-height: 32px; }
+.wp-vline b { font-weight: 600; }
+.wp-vname { margin-top: 4px; font-size: clamp(26px, 2.3vw, 34px); font-weight: 700; letter-spacing: -.04em; line-height: 1.02; }
+.wp-vname span { display: block; margin-top: 4px; font-size: .64em; font-weight: 300; letter-spacing: -.02em; color: #3c3f45; }
+.wp-vfacts { display: grid; gap: 12px; margin-top: 20px; }
+.wp-vfacts > div { display: grid; grid-template-columns: 6.6em minmax(0, 1fr); gap: 10px; padding-top: 12px; border-top: 1px solid #efefef; font-size: 15px; line-height: 1.4; }
+.wp-vfacts dt { font-weight: 600; }
+.wp-vfacts dd { color: #3c3f45; }
+.wp-vtags { display: flex; flex-wrap: wrap; gap: 4px 12px; margin-top: 18px; font-size: 15px; color: #00376b; }
+.wp-vacts { display: flex; align-items: center; padding: 6px 8px 0; border-top: 1px solid #efefef; }
+.wp-vliked { padding: 0 16px 16px; font-size: 15px; line-height: 1.35; }
+.wp-vliked b { font-weight: 600; }
+.wp-vnav { display: none; }
+
+.wp-x { position: absolute; z-index: 2; top: 14px; right: 18px; width: 44px; height: 44px; }
+.wp-x::before, .wp-x::after {
+  content: ""; position: absolute; left: 50%; top: 50%; width: 22px; height: 2px; margin: -1px 0 0 -11px;
+  border-radius: 2px; background: #fff; rotate: 45deg;
+}
+.wp-x::after { rotate: -45deg; }
+.wp-step {
+  position: absolute; z-index: 2; top: 50%; width: 40px; height: 40px; margin-top: -20px; border-radius: 50%;
+  background: #fff; color: var(--ig-card-text); box-shadow: 0 6px 18px -8px rgba(0, 0, 0, .6);
+  transition: scale .3s var(--ig-ease);
+}
+.wp-step:hover { scale: 1.08; }
+.wp-step::after {
+  content: ""; position: absolute; left: 50%; top: 50%; width: 9px; height: 9px;
+  border-left: 1.5px solid currentColor; border-bottom: 1.5px solid currentColor;
+  transform: translate(-30%, -50%) rotate(45deg);
+}
+.wp-step-prev { left: max(12px, calc(50% - var(--wp-vw) / 2 - 58px)); }
+.wp-step-next { right: max(12px, calc(50% - var(--wp-vw) / 2 - 58px)); }
+.wp-step-next::after { transform: translate(-70%, -50%) rotate(-135deg); }
+.wp-view .wp-x:focus-visible, .wp-view .wp-step:focus-visible { outline-color: #fff; }
+html.wp-lock { overflow: hidden; }
+
+@media (max-width: 860px) {
+  .wp-view { place-items: end center; }
+  /* Instagram's phone order: header, picture, actions, likes, caption */
+  .wp-panel {
+    display: flex; flex-direction: column; width: 100%; height: auto; max-height: calc(100svh - 64px);
+    overflow-y: auto; overscroll-behavior: contain; border-radius: 18px 18px 0 0;
+  }
+  .wp-vside { display: contents; }
+  .wp-vtop { order: -1; border-bottom: 0; padding: 10px 14px; }
+  .wp-vmedia { flex: none; aspect-ratio: 5 / 4; }
+  .wp-vacts { order: 1; border-top: 0; }
+  .wp-vliked { order: 2; padding-bottom: 0; }
+  .wp-vbody { order: 3; flex: none; overflow: visible; padding-top: 14px; }
+  .wp-vnav { order: 4; }
+  .wp-step { display: none; }
+  .wp-x { top: 10px; right: 10px; }
+  .wp-vnav { display: flex; gap: 8px; padding: 0 16px 20px; }
+  .wp-vnav button {
+    flex: 1; min-width: 0; display: grid; gap: 2px; padding: 10px 14px; border-radius: 12px; text-align: left;
+    box-shadow: inset 0 0 0 1px #dbdbdb; font-size: 15px;
+  }
+  .wp-vnav button:last-child { text-align: right; }
+  .wp-vnav small { font-size: 13px; color: var(--ig-card-soft); }
+  .wp-vnav b { font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+}

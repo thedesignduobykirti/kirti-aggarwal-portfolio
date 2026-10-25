@@ -1,0 +1,21 @@
+/* theme v3 (Oct 13): vibrant. Deep denim ink for contrast, a hot coral accent for the
+   emphasised words (no serif anywhere), sunny yellow on the dark sections. */
+:root {
+  --cocoa: #19224a;        /* ink: text, buttons, footer (AAA on the light gradient) */
+  --cocoa-soft: #39446b;   /* secondary text, still AA on every gradient colour */
+  --cream: #fffcf9;
+  --blush: #ffb3a1;
+  --pop: #e8341c;          /* coral-red accent for emphasised words */
+  --sun: #ffc93c;          /* accent on dark sections */
+}
+html { font-synthesis: none; }
+/* emphasised words: same heavy grotesque, coloured instead of italic */
+em, .brain { font-style: normal !important; font-weight: 800 !important; color: var(--pop); letter-spacing: -.035em; }
+.mo em, .fm em, .ft em, .hero.dark em { color: var(--sun); }
+
+/* contrast pass */
+.mo-eyebrow { color: rgba(255, 252, 249, .82) !important; }
+.mo-lines { color: rgba(255, 252, 249, .95) !important; }
+.mo-prog li { background: rgba(255, 252, 249, .32) !important; }
+.mo-step em { font-size: 1.12em !important; }
+.mo-prog li::after { background: var(--sun) !important; }

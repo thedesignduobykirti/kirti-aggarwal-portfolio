@@ -1,0 +1,195 @@
+/* "How a project runs": one paper object morphs through the whole job.
+   The world is laid out in design pixels (1000 x 700) and scaled to the screen with --k. */
+.mo {
+  position: relative; z-index: 1;
+  background:
+    radial-gradient(120% 90% at 60% 40%, #2c3c70 0%, #1c2750 46%, #141c3b 100%);
+  color: var(--cream);
+  --paper: url(../assets/paper.jpg);
+  --blush-c: var(--blush, #f2b6a6);
+  --ink-red: #d9534a;
+}
+.mo-pin { position: relative; height: 100vh; overflow: hidden; }
+.mo-spot {
+  position: absolute; left: 62%; top: 44%; width: 1100px; height: 900px; translate: -50% -50%;
+  background: radial-gradient(closest-side, rgba(255, 236, 214, .16), rgba(255, 236, 214, 0));
+  pointer-events: none;
+}
+
+/* ---------- the world ---------- */
+.mo-world {
+  position: absolute; left: var(--wx, 62%); top: var(--wy, 47%);
+  width: 1000px; height: 700px;
+  translate: -50% -50%; scale: var(--k, 1);
+  perspective: 1700px; perspective-origin: 50% 40%;
+  pointer-events: none; z-index: 1;
+}
+.mo-floor {
+  position: absolute; left: 50%; top: 620px; width: 460px; height: 60px; translate: -50% 0;
+  border-radius: 50%; background: radial-gradient(closest-side, rgba(0, 0, 0, .45), rgba(0, 0, 0, 0));
+  filter: blur(6px);
+}
+.mo-tilt, .mo-float { position: absolute; inset: 0; transform-style: preserve-3d; }
+.mo-obj {
+  position: absolute; left: 500px; top: 330px; width: 380px; height: 300px;
+  translate: -50% -50%;
+  transform-style: preserve-3d;
+}
+
+/* paper everywhere */
+.mo-sheet, .mo-flap, .mo-face, .mo-tag span {
+  background-color: #f4ead9;
+  background-image: linear-gradient(rgba(255, 255, 255, .0), rgba(120, 80, 40, .06)), var(--paper);
+  background-size: 100% 100%, 260px 260px;
+}
+.mo-sheet {
+  position: absolute; inset: 0; border-radius: 6px;
+  box-shadow: 0 30px 60px -24px rgba(0, 0, 0, .55), inset 0 0 0 1px rgba(120, 80, 40, .08);
+  color: #23305a; overflow: hidden;
+  backface-visibility: hidden;
+}
+
+/* ---------- 1. the brief card ---------- */
+.mo-brief { position: absolute; inset: 0; padding: 34px 34px 0 38px; font-family: "Caveat", cursive; }
+.mo-brief-h { font-family: "Nunito", system-ui, sans-serif; font-size: 34px; line-height: 1; letter-spacing: -.01em; max-width: 220px; }
+.mo-brief ul { list-style: none; margin-top: 16px; display: grid; gap: 4px; font-size: 25px; font-weight: 500; color: #34406b; }
+.mo-brief li { display: flex; align-items: center; gap: 12px; }
+.mo-brief li i { width: 16px; height: 16px; border: 2px solid #34406b; border-radius: 3px; flex: none; }
+.mo-clip { position: absolute; left: 30px; top: -14px; width: 18px; height: 54px; fill: none; stroke: #c99a8c; stroke-width: 3; stroke-linecap: round; }
+.mo-sun { position: absolute; right: 34px; top: 30px; width: 46px; fill: none; stroke: var(--ink-red); stroke-width: 2.2; stroke-linecap: round; opacity: .85; }
+.mo-scrawl { position: absolute; right: 30px; bottom: 22px; font-size: 24px; color: var(--ink-red); rotate: -8deg; }
+
+/* ---------- 4. the draft poster (sheet is 760 x 470 here) ---------- */
+.mo-poster { position: absolute; inset: 0; opacity: 0; }
+.mo-poster > * { position: absolute; }
+.mo-p-kicker { left: 40px; top: 34px; font-size: 11px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; line-height: 1.3; }
+.mo-p-head { left: 40px; top: 84px; width: 300px; font-weight: 800; font-size: 50px; line-height: .98; letter-spacing: -.04em; }
+.mo-p-head span { display: inline-block; }
+.mo-p-head .mo-hl { color: #e0705f; }
+.mo-p-dots { left: 40px; bottom: 36px; display: flex; gap: 8px; }
+.mo-p-dots i { width: 22px; height: 22px; border-radius: 50%; background: #23305a; }
+.mo-p-dots i:nth-child(2) { background: var(--blush-c); }
+.mo-p-dots i:nth-child(3) { background: #c9a98c; }
+.mo-p-circle { left: 410px; top: 50px; width: 150px; height: 150px; border-radius: 50%; background: var(--blush-c); }
+.mo-p-sq { left: 600px; top: 40px; width: 110px; height: 110px; background: #23305a; border-radius: 4px; }
+.mo-p-arch { left: 410px; top: 250px; width: 130px; height: 180px; background: #23305a; border-radius: 65px 65px 0 0; }
+.mo-p-leaf { left: 585px; top: 160px; width: 110px; fill: #23305a; stroke: #23305a; stroke-width: 3; }
+.mo-p-steps { left: 440px; top: 340px; width: 130px; fill: var(--blush-c); }
+.mo-p-photo { left: 575px; top: 300px; width: 140px; height: 110px; border-radius: 4px; background: url(../assets/work-3.jpg) center / cover; box-shadow: 0 6px 14px -6px rgba(0, 0, 0, .4); }
+.mo-p-list { right: 40px; bottom: 30px; font-size: 10px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; text-align: right; line-height: 1.5; display: none; }
+.mo-crease {
+  position: absolute; inset: 0; opacity: 0; pointer-events: none;
+  background:
+    linear-gradient(90deg, transparent calc(50% - 10px), rgba(90, 60, 30, .10) 50%, rgba(255, 255, 255, .35) calc(50% + 2px), transparent calc(50% + 12px)),
+    linear-gradient(180deg, transparent calc(50% - 8px), rgba(90, 60, 30, .07) 50%, rgba(255, 255, 255, .25) calc(50% + 2px), transparent calc(50% + 10px));
+}
+
+/* ---------- 5. review ---------- */
+.mo-pen { position: absolute; inset: 0; width: 100%; height: 100%; fill: none; stroke: var(--ink-red); stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; opacity: .9; }
+.mo-note {
+  position: absolute; width: 170px; padding: 14px 14px 14px 16px; border-radius: 4px;
+  background: #fff8ee; color: #23305a; font-family: "Caveat", cursive; font-size: 22px; line-height: 1.05;
+  box-shadow: 0 14px 24px -10px rgba(0, 0, 0, .45);
+  opacity: 0;
+}
+.mo-note b { display: inline-grid; place-items: center; width: 22px; height: 22px; margin-right: 6px; border-radius: 50%; background: var(--ink-red); color: #fff; font: 800 12px/1 "Nunito", sans-serif; vertical-align: 3px; }
+.mo-note::before { content: ""; position: absolute; left: 50%; top: -7px; width: 14px; height: 14px; margin-left: -7px; border-radius: 50%; background: var(--ink-red); box-shadow: inset -2px -2px 0 rgba(0, 0, 0, .2), 0 3px 4px rgba(0, 0, 0, .3); }
+.mo-note .tick { position: absolute; right: 10px; bottom: 8px; width: 30px; fill: none; stroke: #2f9a5b; stroke-width: 3.4; stroke-linecap: round; stroke-linejoin: round; }
+.mo-note.n1 { left: 250px; top: 18px; rotate: -4deg; }
+.mo-note.n2 { left: 560px; top: 160px; rotate: 5deg; }
+
+/* ---------- 6. the box print ---------- */
+.mo-print { position: absolute; inset: 0; opacity: 0; }
+.mo-print .mo-p-circle { left: 34%; top: 22%; width: 46%; height: 46%; }
+.mo-print .mo-p-leaf { position: absolute; left: 18%; top: 34%; width: 34%; }
+
+/* ---------- envelope flaps ---------- */
+.mo-flap { position: absolute; opacity: 0; backface-visibility: visible; }
+.mo-flap::after { content: ""; position: absolute; inset: 0; }
+.f-t { left: 0; top: 0; width: 100%; height: 58%; clip-path: polygon(0 0, 100% 0, 50% 100%); }
+.f-t::after { background: linear-gradient(180deg, rgba(255, 255, 255, .25), rgba(90, 60, 30, .16)); }
+.f-b { left: 0; bottom: 0; width: 100%; height: 52%; clip-path: polygon(0 100%, 100% 100%, 50% 0); }
+.f-b::after { background: linear-gradient(0deg, rgba(90, 60, 30, .04), rgba(90, 60, 30, .2)); }
+.f-l { left: 0; top: 0; width: 56%; height: 100%; clip-path: polygon(0 0, 100% 50%, 0 100%); }
+.f-l::after { background: linear-gradient(90deg, rgba(90, 60, 30, .06), rgba(90, 60, 30, .22)); }
+.f-r { right: 0; top: 0; width: 56%; height: 100%; clip-path: polygon(100% 0, 0 50%, 100% 100%); }
+.f-r::after { background: linear-gradient(270deg, rgba(90, 60, 30, .06), rgba(90, 60, 30, .22)); }
+.mo-ink {
+  position: absolute; left: 50%; top: 52%; translate: -50% -50%; rotate: -8deg;
+  padding: 6px 16px; border: 4px solid var(--ink-red); border-radius: 8px;
+  color: var(--ink-red); font: 800 40px/1 "Nunito", sans-serif; letter-spacing: .02em; white-space: nowrap;
+  -webkit-mask: url(../assets/stamp-grain.png) center / 220px; mask: url(../assets/stamp-grain.png) center / 220px;
+  opacity: 0;
+}
+.mo-tag { position: absolute; right: -54px; top: 58%; width: 0; height: 0; opacity: 0; transform-style: preserve-3d; }
+.mo-tag::before { content: ""; position: absolute; left: -46px; top: 0; width: 52px; height: 2px; background: #c99a8c; rotate: 18deg; transform-origin: 0 0; }
+.mo-tag span {
+  position: absolute; left: 0; top: 0; padding: 12px 12px 12px 22px; rotate: 64deg; transform-origin: 0 50%;
+  clip-path: polygon(12px 0, 100% 0, 100% 100%, 12px 100%, 0 50%);
+  color: #23305a; font: 800 15px/1 "Nunito", sans-serif; letter-spacing: .1em;
+  box-shadow: 0 8px 14px -6px rgba(0, 0, 0, .4);
+}
+
+/* ---------- box faces (the sheet is the front; box is 300 x 300 x 300) ---------- */
+.mo-face { position: absolute; width: 100%; height: 100%; opacity: 0; backface-visibility: visible; }
+.mo-face::after { content: ""; position: absolute; left: 0; right: 0; top: 50%; height: 34px; translate: 0 -50%; background: var(--blush-c); opacity: .9; }
+.fc-l { left: -100%; top: 0; }
+.fc-r { left: 100%; top: 0; }
+.fc-b { left: 0; top: 100%; }
+.fc-t { left: 0; top: -100%; }
+.fc-k { left: 0; top: 0; }
+.fc-l::before, .fc-r::before, .fc-k::before, .fc-b::before { content: ""; position: absolute; inset: 0; background: rgba(40, 25, 10, .16); }
+.fc-t::after { left: 50%; right: auto; top: 0; bottom: 0; width: 34px; height: auto; translate: -50% 0; }
+.fc-t::before { content: ""; position: absolute; left: 0; right: 0; top: 50%; height: 34px; translate: 0 -50%; background: var(--blush-c); opacity: .9; }
+.mo-lid { display: none; }
+
+/* ---------- stamp, ink specks, the burst ---------- */
+.mo-stamp { position: absolute; left: 385px; top: 34px; width: 230px; opacity: 0; filter: drop-shadow(0 30px 30px rgba(0, 0, 0, .45)); }
+.mo-specks { position: absolute; left: 500px; top: 330px; }
+.mo-specks i { position: absolute; width: 8px; height: 8px; margin: -4px; border-radius: 50%; background: var(--ink-red); opacity: 0; }
+.mo-burst { position: absolute; left: 500px; top: 200px; }
+.mo-file, .mo-burst .cf { position: absolute; left: 0; top: 0; opacity: 0; }
+.mo-file {
+  translate: -50% -50%;
+  display: grid; place-items: center; width: 92px; height: 92px; border-radius: 16px;
+  background: var(--blush-c); color: #23305a; font: 800 22px/1 "Nunito", sans-serif;
+  box-shadow: 0 16px 30px -12px rgba(0, 0, 0, .55), inset 0 -4px 0 rgba(0, 0, 0, .08);
+}
+.mo-file.b { background: #8fb0e8; }
+.mo-file.c { background: #fff3e2; }
+.mo-burst .cf { width: 10px; height: 16px; border-radius: 2px; }
+
+/* ---------- copy ---------- */
+.mo-copy {
+  position: absolute; left: clamp(20px, 4.4vw, 64px); top: 50%; translate: 0 -50%;
+  width: min(30vw, 440px); z-index: 3;
+}
+.mo-eyebrow { font-size: 13px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: rgba(255, 252, 249, .6); }
+.mo-title { position: relative; margin-top: 14px; height: 2.3em; font-size: clamp(34px, 3.6vw, 60px); line-height: 1.05; font-weight: 800; letter-spacing: -.03em; }
+.mo-step { position: absolute; left: 0; top: 0; display: block; opacity: 0; white-space: nowrap; }
+.mo-step em { display: block; font-family: "Nunito", system-ui, sans-serif; font-style: normal; font-weight: 400; font-size: 1.25em; letter-spacing: -.01em; color: var(--blush-c); }
+.mo-lines { position: relative; margin-top: 18px; min-height: 3.2em; font-size: clamp(16px, 1.3vw, 20px); line-height: 1.45; color: rgba(255, 252, 249, .8); }
+.mo-line { position: absolute; left: 0; top: 0; opacity: 0; }
+.mo-prog { list-style: none; display: flex; gap: 8px; margin-top: 28px; }
+.mo-prog li { width: 34px; height: 4px; border-radius: 4px; background: rgba(255, 252, 249, .18); overflow: hidden; position: relative; }
+.mo-prog li::after { content: ""; position: absolute; inset: 0; background: var(--blush-c); transform: scaleX(var(--f, 0)); transform-origin: 0 50%; }
+.mo-cta {
+  display: inline-flex; align-items: center; gap: 10px; margin-top: 26px;
+  padding: 15px 28px; border-radius: 999px; background: var(--cream); color: #23305a;
+  font-weight: 800; font-size: 17px; opacity: 0; pointer-events: none;
+  transition: translate .35s var(--ease);
+}
+.mo-cta.on { pointer-events: auto; }
+@media (hover: hover) { .mo-cta:hover { translate: 0 -3px; } }
+
+@media (max-width: 900px) {
+  .mo-copy { left: 20px; right: 20px; width: auto; top: auto; bottom: 5vh; translate: none; }
+  .mo-title { font-size: 34px; height: 2.3em; }
+  .mo-lines { font-size: 15px; min-height: 2.9em; margin-top: 10px; }
+  .mo-prog { margin-top: 14px; }
+  .mo-cta { margin-top: 14px; padding: 12px 22px; font-size: 15px; }
+  .mo-spot { left: 50%; top: 32%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .mo-pin { height: auto; padding: 14vh 0 10vh; }
+}

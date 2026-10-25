@@ -1,0 +1,642 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kirti Aggarwal · Freelance graphic + motion designer</title>
+<meta name="description" content="Kirti Aggarwal is a freelance graphic and motion designer in India, working with agencies and studios on brand, social, motion and packaging.">
+<link rel="icon" type="image/png" sizes="64x64" href="assets/favicon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#01203d" media="(prefers-color-scheme: dark)">
+<script>/* light or dark: the visitor's saved choice, else their device setting */(function(){try{var t=localStorage.getItem("ka-theme");}catch(e){}document.documentElement.dataset.theme=t||(matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light");})();</script>
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://kirti-aggarwal.vercel.app/">
+<meta property="og:title" content="Kirti Aggarwal · Freelance graphic + motion designer">
+<meta property="og:description" content="Brand, social, motion and packaging for agencies and studios. Watch the 60-second reel.">
+<meta property="og:image" content="https://kirti-aggarwal.vercel.app/assets/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,300;0,500;0,600;0,700;0,800;0,900;1,800;1,900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="css/hero.css">
+<link rel="stylesheet" href="css/nav.css">
+<link rel="stylesheet" href="css/work.css">
+<link rel="stylesheet" href="css/creds.css">
+<link rel="stylesheet" href="css/close.css">
+<link rel="stylesheet" href="css/v3.css">
+<link rel="stylesheet" href="css/warm.css">
+<link rel="stylesheet" href="css/modes.css">
+<link rel="stylesheet" href="css/ported.css">
+<link rel="stylesheet" href="css/micro.css">
+</head>
+<body id="top">
+
+<!-- moving gradient atmosphere, fixed behind the whole site -->
+<div class="atmos" aria-hidden="true">
+  <canvas class="mesh"></canvas>
+  <span class="blob b1"></span><span class="blob b2"></span><span class="blob b3"></span><span class="blob b4"></span>
+  <svg class="grain"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(#n)"/></svg>
+</div>
+
+<header class="nav">
+  <div class="id">
+    <a class="name" href="#top">Kirti Aggarwal</a>
+    <span class="where">[New Delhi] · <time class="clock">--:--</time></span>
+  </div>
+  <nav aria-label="Sections">
+    <button class="nv-menu" type="button" aria-expanded="false" aria-controls="nv-list"><span class="nv-cur">Home</span><i aria-hidden="true"></i></button>
+    <div class="nv-list" id="nv-list">
+      <a href="#top" data-nv="top">Home</a>
+      <a href="#services" data-nv="services">Services</a>
+      <a href="#work" data-nv="work">Work</a>
+      <a href="#about" data-nv="about">About</a>
+    </div>
+    <a class="hello" href="#brief" data-nv="brief" data-look>Say hello</a>
+    <button class="mode-tg" type="button" aria-label="Switch to dark mode"><svg class="mt" viewBox="0 0 24 24" aria-hidden="true"><mask id="mt-mask"><rect width="24" height="24" fill="#fff"/><circle class="mt-cut" cx="17.5" cy="6.5" r="6.5" fill="#000"/></mask><circle class="mt-core" cx="12" cy="12" r="5.2" fill="currentColor" mask="url(#mt-mask)"/><g class="mt-rays" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="12" y1="1.8" x2="12" y2="3.6" transform="rotate(0 12 12)"/><line x1="12" y1="1.8" x2="12" y2="3.6" transform="rotate(45 12 12)"/><line x1="12" y1="1.8" x2="12" y2="3.6" transform="rotate(90 12 12)"/><line x1="12" y1="1.8" x2="12" y2="3.6" transform="rotate(135 12 12)"/><line x1="12" y1="1.8" x2="12" y2="3.6" transform="rotate(180 12 12)"/><line x1="12" y1="1.8" x2="12" y2="3.6" transform="rotate(225 12 12)"/><line x1="12" y1="1.8" x2="12" y2="3.6" transform="rotate(270 12 12)"/><line x1="12" y1="1.8" x2="12" y2="3.6" transform="rotate(315 12 12)"/></g></svg></button>
+    <span class="nv-bar" aria-hidden="true"></span>
+  </nav>
+</header>
+
+<main class="hero">
+  <div class="copy">
+  <h1 class="title">
+    <span class="line"><span class="w">A</span> <span class="w">little</span> <span class="w">corner</span></span>
+    <span class="line"><span class="w">of</span> <span class="w">my</span> <span class="w brain">brain.</span></span>
+  </h1>
+  <p class="role">Freelance graphic + motion designer for agencies and studios. <br>Booking projects from [November].</p>
+
+  <button class="reel" type="button" data-look data-reel>
+    <span class="thumb"><img src="assets/reel-thumb.jpg" alt=""><span class="tri" aria-hidden="true"></span></span>
+    <span class="reel-text"><strong>Play my reel</strong><span>0:60 · design + motion</span></span>
+  </button>
+  </div>
+
+  <!-- the avatar; the scroll dive zooms straight into her right pupil -->
+  <div class="zoom">
+  <!-- avatar: head plate + irises masked to the eye whites + original eye shading multiplied on top -->
+  <div class="avatar" aria-label="Kirti's 3D avatar peeking up from the bottom of the page" role="img">
+    <div class="rig">
+      <img class="head" src="assets/hero2.webp" alt="" draggable="false">
+      <div class="eyes">
+        <div class="eye" data-eye="l" style="--cx:39.794%;--cy:76.25%">
+          <div class="iris"><span class="hl hl1"></span><span class="hl hl2"></span></div>
+        </div>
+        <div class="eye" data-eye="r" style="--cx:61.093%;--cy:75.13%">
+          <div class="iris"><span class="hl hl1"></span><span class="hl hl2"></span></div>
+        </div>
+        <img class="shade" src="assets/hero2.webp" alt="" draggable="false">
+      </div>
+      <img class="lids" src="assets/hero2-lids.webp" alt="" draggable="false">
+    </div>
+  </div>
+  </div>
+
+
+  <!-- the pupil opens into the reel. Replace assets/reel.mp4 with the real 60s cut. -->
+  <div class="window" id="reel">
+    <div class="player">
+      <video src="assets/reel.mp4" poster="assets/reel-poster.jpg" muted loop playsinline preload="auto"></video>
+      <span class="bigplay" aria-hidden="true"></span>
+      <div class="controls">
+        <button class="c-play" type="button" aria-label="Pause"></button>
+        <span class="c-time">0:00 / 1:00</span>
+        <span class="c-bar"><i></i></span>
+        <button class="c-full" type="button" aria-label="Full screen"></button>
+      </div>
+      <button class="sound" type="button" aria-pressed="false"><span class="spk" aria-hidden="true"></span><span class="sound-label">Sound on</span></button>
+    </div>
+  </div>
+
+  <h2 class="reel-head">60 seconds of things I made <em>move.</em></h2>
+  <p class="proof">I've designed and animated for <span class="nw"><span class="chip">[Agency A]</span>,</span> <span class="nw"><span class="chip">[Studio B]</span> and</span> <span class="nw"><span class="chip">[Agency C]</span>,</span> <br>on brands like <span class="nw"><span class="chip">[Brand X]</span> and</span> <span class="nw"><span class="chip">[Brand Y]</span>.</span></p>
+</main>
+
+<section class="services" id="services">
+  <div class="svc-inner">
+    <h2 class="svc-title"><span class="line"><span class="w2">Hand me any part</span></span> <span class="line"><span class="w2">of the brief.</span></span></h2>
+    <ul class="svc-list">
+      <li class="svc" data-clip="0" tabindex="0">
+        <span class="svc-name"><span>Brand identity</span></span>
+        <span class="svc-meta"><span>Logos, brand systems &amp; guidelines</span><span class="svc-time">from [2–3 weeks]</span></span>
+      </li>
+      <li class="svc" data-clip="1" tabindex="0">
+        <span class="svc-name"><span>Social creatives</span></span>
+        <span class="svc-meta"><span>Posts, carousels &amp; story sets in your client's brand</span><span class="svc-time">[24–48h] per batch</span></span>
+      </li>
+      <li class="svc" data-clip="2" tabindex="0">
+        <span class="svc-name"><span>Motion</span></span>
+        <span class="svc-meta"><span>Reels, logo stings, explainers &amp; animated ads</span><span class="svc-time">from [3–5 days]</span></span>
+      </li>
+      <li class="svc" data-clip="3" tabindex="0">
+        <span class="svc-name"><span>Packaging &amp; print</span></span>
+        <span class="svc-meta"><span>Labels, boxes, menus &amp; print-ready files</span><span class="svc-time">from [1–2 weeks]</span></span>
+      </li>
+    </ul>
+    <p class="svc-foot">Most briefs need two of these. That's the point of hiring one person who does both. <a href="[capabilities.pdf]">Download capabilities PDF</a></p>
+  </div>
+
+  <!-- the clip that follows the cursor over a row (one video per service, swapped by opacity) -->
+  <div class="svc-thumb" aria-hidden="true">
+    <video src="assets/svc-brand.mp4" muted loop playsinline preload="metadata"></video>
+    <video src="assets/svc-social.mp4" muted loop playsinline preload="metadata"></video>
+    <video src="assets/svc-motion.mp4" muted loop playsinline preload="metadata"></video>
+    <video src="assets/svc-pack.mp4" muted loop playsinline preload="metadata"></video>
+    <span class="tri" aria-hidden="true"></span>
+  </div>
+
+  <!-- she peeks in from the right and watches the row you're on -->
+  <div class="peek" aria-hidden="true">
+    <div class="peek-body">
+      <img class="peek-img" src="assets/peek2.webp" alt="" draggable="false">
+      <div class="eyes peek-eyes">
+        <div class="eye" style="--cx:55.82%;--cy:42.54%"><div class="iris"><span class="hl hl1"></span><span class="hl hl2"></span></div></div>
+        <div class="eye" style="--cx:78.17%;--cy:34.54%"><div class="iris"><span class="hl hl1"></span><span class="hl hl2"></span></div></div>
+        <img class="shade" src="assets/peek2.webp" alt="" draggable="false">
+      </div>
+      <img class="peek-img peek-lids" src="assets/peek2-lids.webp" alt="" draggable="false">
+      <!-- the same pose with eyes closed, cropped to the eye area: flashed on for a blink -->
+      <img class="peek-blink" src="assets/peek2-blink.webp" alt="" draggable="false">
+    </div>
+    <!-- hair sway: displacement only where the hair map is white, so the face never moves -->
+    <svg width="0" height="0" style="position:absolute">
+      <filter id="hairwave" filterUnits="userSpaceOnUse" primitiveUnits="userSpaceOnUse" x="0" y="0" width="400" height="660" color-interpolation-filters="sRGB">
+        <feTurbulence id="hairnoise" type="fractalNoise" baseFrequency="0.004 0.0075" numOctaves="1" seed="7" result="t0"/>
+        <feColorMatrix in="t0" type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 0 1" result="t"/>
+        <feImage id="hairmap" href="assets/peek2-hair-map.png" x="0" y="0" width="400" height="660" preserveAspectRatio="none" result="m"/>
+        <feFlood flood-color="rgb(128,128,128)" result="gray"/>
+        <feComposite in="t" in2="m" operator="arithmetic" k1="1" result="tm"/>
+        <feComposite in="gray" in2="m" operator="arithmetic" k1="-1" k2="1" result="gm"/>
+        <feComposite in="tm" in2="gm" operator="arithmetic" k2="1" k3="1" result="map"/>
+        <feDisplacementMap id="hairdisp" in="SourceGraphic" in2="map" scale="10" xChannelSelector="R" yChannelSelector="G"/>
+      </filter>
+    </svg>
+  </div>
+</section>
+
+<!-- placeholder projects: swap images and captions for Kirti's real work.
+     data-cat drives the filter chips; data-role is her role in the project view. -->
+<section class="work" id="work">
+  <div class="work-pin">
+    <!-- the heading stays put; only the cards slide (Kirti: "Things I made move" shouldn't move) -->
+    <div class="work-side">
+        <h2 class="work-title"><span class="line"><span class="w3">Things</span></span> <span class="line"><span class="w3">I made</span></span> <span class="line"><span class="w3"><em>move.</em></span></span></h2>
+        <p class="wk-lede">Brand, social, motion and packaging for agencies. Open any project for the brief and my part in it.</p>
+      </div>
+    <div class="wk-clip">
+    <div class="wk-rail">
+      <div class="track">
+        <article class="card" style="--i:0" data-cat="brand packaging" data-role="[Brand identity, packaging, social]">
+          <div class="card-media"><img src="assets/work-1.jpg" alt="Fizz &amp; Co: Cafe rebrand" loading="eager" width="1100" height="880" draggable="false"></div>
+          <div class="card-cap">
+            <h3>Fizz &amp; Co <span>Cafe rebrand</span></h3>
+            <dl>
+              <div><dt>Brief</dt><dd>Rebrand before a second outlet opens</dd></div>
+              <div><dt>Made</dt><dd>Logo, menu, cups, 12 posts, 3 reels</dd></div>
+              <div><dt>Via</dt><dd>[Agency A]</dd></div>
+              <div><dt>Turnaround</dt><dd>3 weeks</dd></div>
+            </dl>
+          </div>
+        </article>
+        <article class="card" style="--i:1" data-cat="social motion" data-role="[Art direction, motion design]">
+          <div class="card-media"><img src="assets/work-2.jpg" alt="blush ritual: Skincare launch ads" loading="eager" width="1100" height="880" draggable="false"></div>
+          <div class="card-cap">
+            <h3>blush ritual <span>Skincare launch ads</span></h3>
+            <dl>
+              <div><dt>Brief</dt><dd>Launch ads for a new serum on Meta</dd></div>
+              <div><dt>Made</dt><dd>6 motion ads (9:16, 1:1), 20 statics</dd></div>
+              <div><dt>Via</dt><dd>[Studio B]</dd></div>
+              <div><dt>Turnaround</dt><dd>8 days</dd></div>
+            </dl>
+          </div>
+        </article>
+        <article class="card" style="--i:2" data-cat="motion" data-role="[Script, storyboard, animation]">
+          <div class="card-media"><img src="assets/work-3.jpg" alt="Paywell: Fintech explainer" loading="lazy" width="1100" height="880" draggable="false"></div>
+          <div class="card-cap">
+            <h3>Paywell <span>Fintech explainer</span></h3>
+            <dl>
+              <div><dt>Brief</dt><dd>Explain the savings feature in 20 seconds</dd></div>
+              <div><dt>Made</dt><dd>20s explainer, kinetic type, sound sync</dd></div>
+              <div><dt>Via</dt><dd>Direct</dd></div>
+              <div><dt>Turnaround</dt><dd>5 days</dd></div>
+            </dl>
+          </div>
+        </article>
+        <article class="card" style="--i:3" data-cat="social" data-role="[Social design, reels edit]">
+          <div class="card-media"><img src="assets/work-4.jpg" alt="Saanjh: Fashion social" loading="lazy" width="1100" height="880" draggable="false"></div>
+          <div class="card-cap">
+            <h3>Saanjh <span>Fashion social</span></h3>
+            <dl>
+              <div><dt>Brief</dt><dd>Monthly social content for a festive season</dd></div>
+              <div><dt>Made</dt><dd>30 posts a month, story templates, 4 reels</dd></div>
+              <div><dt>Via</dt><dd>[Agency C]</dd></div>
+              <div><dt>Turnaround</dt><dd>Ongoing since [Mar 2026]</dd></div>
+            </dl>
+          </div>
+        </article>
+        <article class="card" style="--i:4" data-cat="packaging brand" data-role="[Packaging design, illustration]">
+          <div class="card-media"><img src="assets/work-5.jpg" alt="Tikki Tales: Snack packaging" loading="lazy" width="1100" height="880" draggable="false"></div>
+          <div class="card-cap">
+            <h3>Tikki Tales <span>Snack packaging</span></h3>
+            <dl>
+              <div><dt>Brief</dt><dd>Shelf packaging for three flavours</dd></div>
+              <div><dt>Made</dt><dd>Label system, dielines, print-ready files</dd></div>
+              <div><dt>Via</dt><dd>[Agency A]</dd></div>
+              <div><dt>Turnaround</dt><dd>2 weeks</dd></div>
+            </dl>
+          </div>
+        </article>
+        <article class="card" style="--i:5" data-cat="motion brand" data-role="[Title design, 3D, motion]">
+          <div class="card-media"><img src="assets/work-6.jpg" alt="[Studio B]: Showreel titles" loading="lazy" width="1100" height="880" draggable="false"></div>
+          <div class="card-cap">
+            <h3>[Studio B] <span>Showreel titles</span></h3>
+            <dl>
+              <div><dt>Brief</dt><dd>Open the studio's 2026 showreel</dd></div>
+              <div><dt>Made</dt><dd>Logo sting + 45s title sequence</dd></div>
+              <div><dt>Via</dt><dd>Direct</dd></div>
+              <div><dt>Turnaround</dt><dd>6 days</dd></div>
+            </dl>
+          </div>
+        </article>
+      </div>
+    </div>
+    </div><!-- /wk-clip -->
+    <div class="wk-chips" role="group" aria-label="Filter projects">
+      <button class="wk-chip" type="button" data-f="all" aria-pressed="true">All <sup>6</sup></button>
+      <button class="wk-chip" type="button" data-f="brand" aria-pressed="false">Brand <sup>3</sup></button>
+      <button class="wk-chip" type="button" data-f="social" aria-pressed="false">Social <sup>2</sup></button>
+      <button class="wk-chip" type="button" data-f="motion" aria-pressed="false">Motion <sup>3</sup></button>
+      <button class="wk-chip" type="button" data-f="packaging" aria-pressed="false">Packaging <sup>2</sup></button>
+    </div>
+    <div class="wk-foot">
+      <p class="work-count"><b class="now">01</b> / <span class="wk-total">06</span></p>
+      <div class="work-progress" aria-hidden="true"><i></i></div>
+      <div class="work-nav">
+        <button class="wn wn-prev" type="button" aria-label="Previous project"></button>
+        <button class="wn wn-next" type="button" aria-label="Next project"></button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- "How we'll work together" (ported Oct 25 from the IG-style build, without the Instagram chrome).
+     Desktop: the section pins and scroll plays the six step cards: the active one sits in the middle,
+     its bar fills, its sticker plays, then the next one comes forward. Click a side card to jump to it.
+     Phones: a swipe row that taps and auto-plays. Numbers in [brackets] are placeholders until Kirti confirms them. -->
+<section class="ps" id="how" aria-labelledby="ps-title">
+  <div class="ps-pin">
+
+    <header class="ps-head">
+      <h2 class="fq-title ps-h" id="ps-title"><span class="line"><span class="kw">How we'll</span></span> <span class="line"><span class="kw"><em>work together.</em></span></span></h2>
+    </header>
+
+    <ol class="ps-reel">
+      <li class="ps-story ps-s1">
+        <article class="ps-card">
+          <div class="ps-chrome" aria-hidden="true">
+            <span class="ps-bars"><i><b></b></i><i><b></b></i><i><b></b></i><i><b></b></i><i><b></b></i><i><b></b></i></span>
+          </div>
+          <p class="ps-num" aria-hidden="true">01</p>
+          <h3 class="ps-t">Brief</h3>
+          <p class="ps-line">Send a link, a doc or a voice note.</p>
+          <div class="ps-art" aria-hidden="true"><div class="ps-st">
+            <span class="ps-at ps-at-doc"><span class="ps-doc"><i></i><i></i><i></i><i></i><i></i></span></span>
+            <span class="ps-at ps-at-link"><span class="ps-link"><svg viewBox="0 0 24 24"><path d="M10.2 13.8a4.2 4.2 0 0 0 6 0l2.9-2.9a4.2 4.2 0 0 0-6-6l-1.2 1.2M13.8 10.2a4.2 4.2 0 0 0-6 0l-2.9 2.9a4.2 4.2 0 0 0 6 6l1.2-1.2"/></svg></span></span>
+            <span class="ps-mic"><svg viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5.5 11.2a6.5 6.5 0 0 0 13 0M12 17.8V21"/></svg></span>
+            <svg class="ps-spark ps-k1" viewBox="0 0 40 40"><path pathLength="1" d="M14 26 6 34"/><path pathLength="1" d="M20 20V7"/><path pathLength="1" d="M26 26l8 3"/></svg>
+          </div></div>
+          <span class="ps-shade" aria-hidden="true"></span>
+        </article>
+      </li>
+
+      <li class="ps-story ps-s2">
+        <article class="ps-card">
+          <div class="ps-chrome" aria-hidden="true">
+            <span class="ps-bars"><i><b></b></i><i><b></b></i><i><b></b></i><i><b></b></i><i><b></b></i><i><b></b></i></span>
+          </div>
+          <p class="ps-num" aria-hidden="true">02</p>
+          <h3 class="ps-t">Quote in [4h]</h3>
+          <p class="ps-line">Scope, timeline and price, in writing.</p>
+          <div class="ps-art" aria-hidden="true"><div class="ps-st">
+            <span class="ps-at ps-at-quote"><span class="ps-quote"><b>QUOTE</b><i></i><i></i><i></i><i></i></span></span>
+            <span class="ps-clock"><i class="ps-hh"></i><i class="ps-mh"></i></span>
+            <svg class="ps-spark ps-k2" viewBox="0 0 40 40"><path pathLength="1" d="M18 22 8 18"/><path pathLength="1" d="M21 18 19 6"/><path pathLength="1" d="M25 20l8-8"/></svg>
+          </div></div>
+          <span class="ps-shade" aria-hidden="true"></span>
+        </article>
+      </li>
+
+      <li class="ps-story ps-s3">
+        <article class="ps-card">
+          <div class="ps-chrome" aria-hidden="true">
+            <span class="ps-bars"><i><b></b></i><i><b></b></i><i><b></b></i><i><b></b></i><i><b></b></i><i><b></b></i></span>
+          </div>
+          <p class="ps-num" aria-hidden="true">03</p>
+          <h3 class="ps-t">[65%] advance</h3>
+          <p class="ps-line">Your slot is booked. I start the same day.</p>
+          <div class="ps-art" aria-hidden="true"><div class="ps-st">
+            <span class="ps-at ps-at-paid"><span class="ps-paid">PAID</span></span>
+            <svg class="ps-spark ps-k3a" viewBox="0 0 40 40"><path pathLength="1" d="M26 26 34 34"/><path pathLength="1" d="M20 22 22 36"/><path pathLength="1" d="M28 20h10"/></svg>
+            <svg class="ps-spark ps-k3b" viewBox="0 0 40 40"><path pathLength="1" d="M14 14 6 6"/><path pathLength="1" d="M20 18 18 4"/><path pathLength="1" d="M12 20H2"/></svg>
+          </div></div>
+          <span class="ps-shade" aria-hidden="true"></span>
+        </article>
+      </li>
+
+      <li class="ps-story ps-s4">
+        <article class="ps-card">
+          <div class="ps-chrome" aria-hidden="true">
+            <span class="ps-bars"><i><b></b></i><i><b></b></i><i><b></b></i><i><b></b></i><i><b></b></i><i><b></b></i></span>
+          </div>
+          <p class="ps-num" aria-hidden="true">04</p>
+          <h3 class="ps-t">First draft in [48h]</h3>
+          <p class="ps-line">For most briefs, in your brand.</p>
+          <div class="ps-art" aria-hidden="true"><div class="ps-st">
+            <span class="ps-at ps-at-draft"><span class="ps-draft"><img src="assets/cp-draft.jpg" alt="" loading="lazy" decoding="async"></span></span>
+            <span class="ps-at ps-at-tag"><span class="ps-tag">DRAFT<svg viewBox="0 0 120 64"><path pathLength="1" d="M66 9C36 6 8 16 7 33c-1 16 30 25 61 22 29-3 47-14 45-28C111 13 88 6 60 8 44 9 30 13 22 18"/></svg></span></span>
+          </div></div>
+          <span class="ps-shade" aria-hidden="true"></span>
+        </article>
+      </li>
+
+      <li class="ps-story ps-s5">
+        <article class="ps-card">
+          <div class="ps-chrome" aria-hidden="true">
+            <span class="ps-bars"><i><b></b></i><i><b></b></i><i><b></b></i><i><b></b></i><i><b></b></i><i><b></b></i></span>
+          </div>
+          <p class="ps-num" aria-hidden="true">05</p>
+          <h3 class="ps-t">[2] rounds of changes</h3>
+          <p class="ps-line">Both are included in the quote.</p>
+          <div class="ps-art" aria-hidden="true"><div class="ps-st">
+            <span class="ps-at ps-at-c1"><span class="ps-cmt ps-c1"><b>Client</b><small>Now</small><span>this looks great &#9825;</span><i class="ps-ok"></i></span></span>
+            <span class="ps-at ps-at-c2"><span class="ps-cmt ps-c2"><b>Client</b><small>Now</small><span>just a small tweak :)</span><i class="ps-ok"></i></span></span>
+            <svg class="ps-spark ps-k5" viewBox="0 0 40 40"><path pathLength="1" d="M24 18l10-8"/><path pathLength="1" d="M26 23h12"/><path pathLength="1" d="M22 13 26 2"/></svg>
+          </div></div>
+          <span class="ps-shade" aria-hidden="true"></span>
+        </article>
+      </li>
+
+      <li class="ps-story ps-s6">
+        <article class="ps-card">
+          <div class="ps-chrome" aria-hidden="true">
+            <span class="ps-bars"><i><b></b></i><i><b></b></i><i><b></b></i><i><b></b></i><i><b></b></i><i><b></b></i></span>
+          </div>
+          <p class="ps-num" aria-hidden="true">06</p>
+          <h3 class="ps-t">Files are yours</h3>
+          <p class="ps-line">[35%] on delivery, then every source file.</p>
+          <div class="ps-art" aria-hidden="true"><div class="ps-st">
+            <span class="ps-at ps-at-ai"><span class="ps-file ps-ai">.ai</span></span>
+            <span class="ps-at ps-at-psd"><span class="ps-file ps-psd">.psd</span></span>
+            <span class="ps-at ps-at-mp4"><span class="ps-file ps-mp4">.mp4</span></span>
+            <svg class="ps-spark ps-k6" viewBox="0 0 40 40"><path pathLength="1" d="M16 22 4 24"/><path pathLength="1" d="M18 16 8 8"/><path pathLength="1" d="M22 14 22 2"/></svg>
+          </div></div>
+          <span class="ps-shade" aria-hidden="true"></span>
+        </article>
+      </li>
+    </ol>
+
+    <p class="ps-end"><a class="ig-btn" href="#brief">Send a brief</a></p>
+  </div>
+</section>
+
+<!-- credentials: her ID badge hangs on a lanyard (drag it), stamps land on her passport one by one once it is on screen.
+     Everything in [brackets] is a placeholder until Kirti confirms the real details. -->
+<section class="cr" id="about">
+  <div class="cr-pin">
+    <div class="cr-badge-zone">
+      <svg class="cr-rope" aria-hidden="true"><path class="cr-rope-a"/><path class="cr-rope-b"/></svg>
+      <div class="badge" role="img" aria-label="ID badge: Kirti Aggarwal, Graphic and Motion Designer, verified freelancer">
+        <span class="badge-clip" aria-hidden="true"></span>
+        <span class="badge-slot" aria-hidden="true"></span>
+        <img class="badge-photo" src="assets/badge-photo.jpg" alt="" draggable="false">
+        <p class="badge-name">Kirti Aggarwal</p>
+        <p class="badge-role">Graphic + Motion Designer</p>
+        <p class="badge-since">Freelance since [2021] · [New Delhi]</p>
+        <span class="badge-seal" aria-hidden="true"><i></i></span>
+        <span class="badge-ver">Verified</span>
+      </div>
+    </div>
+
+    <div class="cr-right">
+      <h2 class="cr-title"><span class="line"><span class="w5">Stamped, signed,</span></span> <span class="line"><span class="w5"><em>trusted.</em></span></span></h2>
+      <div class="passport">
+        <div class="pp-page pp-l"><span class="pp-lbl">Credentials</span><span class="pp-no">01</span></div>
+        <div class="pp-page pp-r"><span class="pp-lbl">Kirti Aggarwal</span><span class="pp-no">02</span></div>
+        <div class="pp-stamps">
+            <div class="stamp st-rect st-0" style="--r:-6deg"><span class="st-a">B.Des · [Communication Design]</span><span class="st-b">[Institute]</span><span class="st-c">[2021]</span></div>
+            <div class="stamp st-round st-1" style="--r:4deg"><span class="st-a">[4]+</span><span class="st-b">YEARS</span><span class="st-c">★ ★ ★</span></div>
+            <div class="stamp st-rect st-2" style="--r:-3deg"><span class="st-a">120+</span><span class="st-b">PROJECTS</span><span class="st-c">DELIVERED</span></div>
+            <div class="stamp st-rect st-3" style="--r:5deg"><span class="st-a">[ADOBE CERTIFIED]</span><span class="st-b">[After Effects]</span></div>
+            <div class="stamp st-rect st-4" style="--r:-4deg"><span class="st-a">15+</span><span class="st-b">AGENCIES</span><span class="st-c">& STUDIOS</span></div>
+            <div class="stamp st-round st-5" style="--r:7deg"><span class="st-a">NDA</span><span class="st-b">FRIENDLY</span><span class="st-c">★</span></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- tools: a full-width band of big logos, name under each -->
+  <div class="cr-tools">
+      <h3 class="cr-tools-k" id="cr-tools-k">Tools I work in every day</h3>
+      <div class="cr-marquee">
+      <ul class="tools cr-track" aria-labelledby="cr-tools-k">
+          <li class="tool tool-ae"><span class="tool-ic"><img src="assets/tools/adobeaftereffects.svg" alt="" width="28" height="28"></span>After Effects</li>
+          <li class="tool tool-ai"><span class="tool-ic"><img src="assets/tools/adobeillustrator.svg" alt="" width="28" height="28"></span>Illustrator</li>
+          <li class="tool tool-ps"><span class="tool-ic"><img src="assets/tools/adobephotoshop.svg" alt="" width="28" height="28"></span>Photoshop</li>
+          <li class="tool tool-pr"><span class="tool-ic"><img src="assets/tools/adobepremierepro.svg" alt="" width="28" height="28"></span>Premiere Pro</li>
+          <li class="tool tool-fg"><span class="tool-ic"><img src="assets/tools/figma.svg" alt="" width="28" height="28"></span>Figma</li>
+          <li class="tool tool-bl"><span class="tool-ic"><img src="assets/tools/blender.svg" alt="" width="28" height="28"></span>Blender</li>
+      </ul>
+      </div>
+      </div>
+</section>
+
+<!-- client reviews (pricing removed Oct 13; the payment flow lives in the How I work section) -->
+<!-- PLACEHOLDER quotes: replace with real ones before launch -->
+<section class="qs" id="reviews" aria-labelledby="cl-rv-title">
+  <h2 class="cl-sr" id="cl-rv-title">What producers say</h2>
+  <div class="cl-rv" role="region" aria-roledescription="carousel" aria-labelledby="cl-rv-title">
+    <div class="cl-rv-stage">
+      <figure class="cl-rv-card is-on" role="group" aria-roledescription="slide" aria-label="1 of 3">
+        <span class="cl-rv-time">3d ago</span>
+        <blockquote>Delivered 14 reels in a week, and the After Effects files were cleaner than ours.</blockquote>
+        <figcaption><b>[Name]</b> · Producer, [Agency A]</figcaption>
+      </figure>
+      <figure class="cl-rv-card" role="group" aria-roledescription="slide" aria-label="2 of 3">
+        <span class="cl-rv-time">1w ago</span>
+        <blockquote>Rare to find someone who designs the post and animates it. Saved us a second freelancer.</blockquote>
+        <figcaption><b>[Name]</b> · Creative Director, [Studio B]</figcaption>
+      </figure>
+      <figure class="cl-rv-card" role="group" aria-roledescription="slide" aria-label="3 of 3">
+        <span class="cl-rv-time">2w ago</span>
+        <blockquote>Hit every single deadline across a three-month retainer. Zero chasing.</blockquote>
+        <figcaption><b>[Name]</b> · Account Manager, [Agency C]</figcaption>
+      </figure>
+    </div>
+    <button class="cl-rv-arrow cl-rv-prev" type="button" aria-label="Previous review"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14.5 5.5 8 12l6.5 6.5"/></svg></button>
+    <button class="cl-rv-arrow cl-rv-next" type="button" aria-label="Next review"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9.5 5.5 16 12l-6.5 6.5"/></svg></button>
+    <div class="cl-rv-dots">
+      <button class="cl-rv-dot is-on" type="button" aria-label="Show review 1"><i></i></button>
+      <button class="cl-rv-dot" type="button" aria-label="Show review 2"><i></i></button>
+      <button class="cl-rv-dot" type="button" aria-label="Show review 3"><i></i></button>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ: answers with [brackets] need Kirti's real details -->
+<section class="fq" id="faq" aria-labelledby="fq-title">
+  <div class="fq-grid">
+    <div class="fq-head">
+      <h2 class="fq-title" id="fq-title"><span class="line"><span class="fq-w">Before you</span></span> <span class="line"><span class="fq-w"><em>ask.</em></span></span></h2>
+      <p class="fq-sub">The questions producers send most often. Anything else, put it in the brief.</p>
+    </div>
+    <div class="fq-list">
+      <div class="fq-item">
+        <h3><button class="fq-q" id="fq-q1" type="button" aria-expanded="false" aria-controls="fq-a1"><span>Do you sign NDAs?</span><i class="fq-ico" aria-hidden="true"></i></button></h3>
+        <div class="fq-a" id="fq-a1" role="region" aria-labelledby="fq-q1"><p>Yes. Send yours with the brief and I'll sign it before I open any files. If you don't have one, I can send a simple mutual NDA.</p></div>
+      </div>
+      <div class="fq-item">
+        <h3><button class="fq-q" id="fq-q2" type="button" aria-expanded="false" aria-controls="fq-a2"><span>Can you work white-label under our agency name?</span><i class="fq-ico" aria-hidden="true"></i></button></h3>
+        <div class="fq-a" id="fq-a2" role="region" aria-labelledby="fq-q2"><p>Yes. Your client only sees your agency. I won't contact them directly, and the work stays off my portfolio until you say it's fine to share.</p></div>
+      </div>
+      <div class="fq-item">
+        <h3><button class="fq-q" id="fq-q3" type="button" aria-expanded="false" aria-controls="fq-a3"><span>What files do I get?</span><i class="fq-ico" aria-hidden="true"></i></button></h3>
+        <div class="fq-a" id="fq-a3" role="region" aria-labelledby="fq-q3"><p>Final exports in the sizes you need (PNG, JPG, PDF, MP4), plus the editable source files: Illustrator, Photoshop, After Effects or Figma. Layers are named and grouped so your team can make changes without asking me.</p></div>
+      </div>
+      <div class="fq-item">
+        <h3><button class="fq-q" id="fq-q4" type="button" aria-expanded="false" aria-controls="fq-a4"><span>Which time zone and hours do you work?</span><i class="fq-ico" aria-hidden="true"></i></button></h3>
+        <div class="fq-a" id="fq-a4" role="region" aria-labelledby="fq-q4"><p>I'm in [city], India, on IST (UTC+5:30). I work [10am to 7pm], Monday to [Friday]. If you're in the UK or US, tell me a day ahead and I'll move a call to fit your morning.</p></div>
+      </div>
+      <div class="fq-item">
+        <h3><button class="fq-q" id="fq-q5" type="button" aria-expanded="false" aria-controls="fq-a5"><span>How does payment work?</span><i class="fq-ico" aria-hidden="true"></i></button></h3>
+        <div class="fq-a" id="fq-a5" role="region" aria-labelledby="fq-q5"><p>[60–70%] advance before I start. The balance is due on final delivery, before I send the source files. I invoice in INR, USD or GBP and take [UPI, bank transfer or Wise].</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- the brief form. Sends through Web3Forms once FORM_KEY is set at the top of close.js; until then (or if sending fails) it opens an email draft. -->
+<section class="bf" id="brief">
+  <div class="bf-grid">
+    <div class="bf-left">
+      <h2 class="bf-title"><span class="line"><span class="w7">Got a brief</span></span> <span class="line"><span class="w7">due <em>Friday?</em></span></span></h2>
+      <p class="bf-sub">Send it over. I reply within [4] working hours with a quote and a timeline.</p>
+      <ul class="bf-alt">
+        <li><a class="bf-wa" href="https://wa.me/[91XXXXXXXXXX]?text=Hi%20Kirti%2C%20I%27m%20from%20...%20and%20I%20have%20a%20brief%20for%20you." target="_blank" rel="noopener">WhatsApp me</a></li>
+        <li><button class="bf-copy" type="button" data-email="[hello@thedesignduoo.com]"><span class="bf-copy-t">[hello@thedesignduoo.com]</span><span class="bf-copy-s">Copy</span></button></li>
+        <li><a href="[capabilities.pdf]">Capabilities PDF</a></li>
+      </ul>
+    </div>
+
+    <div class="bf-box">
+    <form class="bf-form" name="brief" method="POST" novalidate>
+      <p class="bf-hp" aria-hidden="true"><label>Leave this empty <input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off"></label></p>
+      <div class="bf-row3">
+        <label class="fld"><span>Your name</span><input name="name" autocomplete="name" required></label>
+        <label class="fld"><span>Agency or studio</span><input name="agency" autocomplete="organization"></label>
+        <label class="fld"><span>Email</span><input name="email" type="email" autocomplete="email" required></label>
+      </div>
+      <fieldset class="fld">
+        <legend>What do you need?</legend>
+        <div class="bf-chips">
+          <label><input type="checkbox" name="need" value="Brand identity"><span>Brand identity</span></label>
+          <label><input type="checkbox" name="need" value="Social creatives"><span>Social creatives</span></label>
+          <label><input type="checkbox" name="need" value="Motion"><span>Motion</span></label>
+          <label><input type="checkbox" name="need" value="Packaging & print"><span>Packaging &amp; print</span></label>
+          <label><input type="checkbox" name="need" value="Not sure yet"><span>Not sure yet</span></label>
+        </div>
+      </fieldset>
+      <div class="bf-row2">
+        <label class="fld"><span>Deadline</span><input name="deadline" type="date"></label>
+        <fieldset class="fld">
+          <legend>Budget</legend>
+          <div class="bf-chips">
+            <label><input type="radio" name="budget" value="Small" data-hint="Small is roughly under ₹[25k], like a post set or one short animation."><span>Small</span></label>
+            <label><input type="radio" name="budget" value="Mid" data-hint="Mid is roughly ₹[25k to 75k], like a campaign or a few weeks of work."><span>Mid</span></label>
+            <label><input type="radio" name="budget" value="Large" data-hint="Large is roughly ₹[75k] and up, like a full identity or a monthly retainer."><span>Large</span></label>
+            <label><input type="radio" name="budget" value="Not sure" data-hint="No problem. I'll suggest a scope that fits once I see the brief."><span>Not sure</span></label>
+          </div>
+          <p class="bf-hint" aria-live="polite">Rough guide in ₹: small under [25k], mid [25k to 75k], large [75k+].</p>
+        </fieldset>
+      </div>
+      <label class="fld"><span>Link to the brief, or two lines about it</span><textarea name="brief" rows="3" placeholder="Drive, Notion, Figma… anything works"></textarea></label>
+      <div class="bf-send">
+        <button class="bf-btn" type="submit" data-look2><span>Send the brief</span></button>
+        <p class="bf-msg" role="status" aria-live="polite"></p>
+      </div>
+    </form>
+    <div class="bf-done" role="status" tabindex="-1" hidden>
+      <svg class="bf-done-tick" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="29" pathLength="1"/><path d="M19 33.5 28 42l17-19" pathLength="1"/></svg>
+      <h3 class="bf-done-title">Thanks<span class="bf-done-name"></span>. Your brief is in.</h3>
+      <p class="bf-done-text">I'll reply within [4] working hours with a quote and a timeline.</p>
+      <button class="bf-again" type="button">Send another brief</button>
+    </div>
+    </div>
+  </div>
+
+
+</section>
+
+<!-- find me: big social cards. [linkedin-url] and [behance-url] need real links before launch -->
+<section class="fm" id="find" aria-labelledby="fm-title">
+  <h2 class="fq-title cl-fm-title" id="fm-title"><span class="line"><span class="kw">Find me</span></span> <span class="line"><span class="kw"><em>elsewhere.</em></span></span></h2>
+  <div class="cl-fm-grid">
+    <div class="cl-fm-card cl-fm-ig">
+      <div class="cl-fm-in">
+        <img class="cl-fm-av" src="assets/badge-photo.jpg" alt="" width="120" height="120" loading="lazy" decoding="async">
+        <div class="cl-fm-prof">
+          <p class="cl-fm-plat">Instagram</p>
+          <p class="cl-fm-handle">Kirti Aggarwal</p>
+          <p class="cl-fm-sub">@the.designduoo</p>
+          <a class="cl-follow" href="https://instagram.com/the.designduoo" target="_blank" rel="noopener" aria-label="Follow the.designduoo on Instagram">Follow</a>
+        </div>
+      </div>
+    </div>
+    <a class="cl-fm-card" href="[linkedin-url]" target="_blank" rel="noopener" aria-label="Kirti Aggarwal on LinkedIn">
+      <span class="cl-fm-in">
+        <svg class="cl-fm-logo cl-fm-li" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        <span class="cl-fm-txt"><span class="cl-fm-name">Kirti Aggarwal</span><span class="cl-fm-sub">Case notes and open dates</span></span>
+        <svg class="cl-fm-go" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M8.5 7H17v8.5"/></svg>
+      </span>
+    </a>
+    <a class="cl-fm-card" href="[behance-url]" target="_blank" rel="noopener" aria-label="Kirti Aggarwal on Behance">
+      <span class="cl-fm-in">
+        <span class="cl-fm-logo cl-fm-be" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M16.969 16.927a2.561 2.561 0 0 0 1.901.677 2.501 2.501 0 0 0 1.531-.475c.362-.235.636-.584.779-.99h2.585a5.091 5.091 0 0 1-1.9 2.896 5.292 5.292 0 0 1-3.091.88 5.839 5.839 0 0 1-2.284-.433 4.871 4.871 0 0 1-1.723-1.211 5.657 5.657 0 0 1-1.08-1.874 7.057 7.057 0 0 1-.383-2.393c-.005-.8.129-1.595.396-2.349a5.313 5.313 0 0 1 5.088-3.604 4.87 4.87 0 0 1 2.376.563c.661.362 1.231.87 1.668 1.485a6.2 6.2 0 0 1 .943 2.133c.194.821.263 1.666.205 2.508h-7.699c-.063.79.184 1.574.688 2.187ZM6.947 4.084a8.065 8.065 0 0 1 1.928.198 4.29 4.29 0 0 1 1.49.638c.418.303.748.711.958 1.182.241.579.357 1.203.341 1.83a3.506 3.506 0 0 1-.506 1.961 3.726 3.726 0 0 1-1.503 1.287 3.588 3.588 0 0 1 2.027 1.437c.464.747.697 1.615.67 2.494a4.593 4.593 0 0 1-.423 2.032 3.945 3.945 0 0 1-1.163 1.413 5.114 5.114 0 0 1-1.683.807 7.135 7.135 0 0 1-1.928.259H0V4.084h6.947Zm-.235 12.9c.308.004.616-.029.916-.099a2.18 2.18 0 0 0 .766-.332c.228-.158.411-.371.534-.619.142-.317.208-.663.191-1.009a2.08 2.08 0 0 0-.642-1.715 2.618 2.618 0 0 0-1.696-.505h-3.54v4.279h3.471Zm13.635-5.967a2.13 2.13 0 0 0-1.654-.619 2.336 2.336 0 0 0-1.163.259 2.474 2.474 0 0 0-.738.62 2.359 2.359 0 0 0-.396.792c-.074.239-.12.485-.137.734h4.769a3.239 3.239 0 0 0-.679-1.785l-.002-.001Zm-13.813-.648a2.254 2.254 0 0 0 1.423-.433c.399-.355.607-.88.56-1.413a1.916 1.916 0 0 0-.178-.891 1.298 1.298 0 0 0-.495-.533 1.851 1.851 0 0 0-.711-.274 3.966 3.966 0 0 0-.835-.073H3.241v3.631h3.293v-.014ZM21.62 5.122h-5.976v1.527h5.976V5.122Z"/></svg></span>
+        <span class="cl-fm-txt"><span class="cl-fm-name">Kirti Aggarwal</span><span class="cl-fm-sub">Full projects, brief to final file</span></span>
+        <svg class="cl-fm-go" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M8.5 7H17v8.5"/></svg>
+      </span>
+    </a>
+  </div>
+</section>
+
+<footer class="ft">
+  <p class="cl-wm"><span class="cl-sr">Kirti Aggarwal</span><span class="wm-line" aria-hidden="true"><span style="--i:0"><b>K</b></span><span style="--i:1"><b>i</b></span><span style="--i:2"><b>r</b></span><span style="--i:3"><b>t</b></span><span style="--i:4"><b>i</b></span></span> <span class="wm-line" aria-hidden="true"><span style="--i:5"><b>A</b></span><span style="--i:6"><b>g</b></span><span style="--i:7"><b>g</b></span><span style="--i:8"><b>a</b></span><span style="--i:9"><b>r</b></span><span style="--i:10"><b>w</b></span><span style="--i:11"><b>a</b></span><span style="--i:12"><b>l</b></span></span></p>
+  <div class="cl-ft-row">
+    <p>© 2026 Kirti Aggarwal · Designed and animated by me.</p>
+    <a href="#top" class="cl-top">Back to top <span aria-hidden="true">↑</span></a>
+  </div>
+</footer>
+
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.3.4/dist/lenis.min.js"></script>
+<script src="bg.js"></script>
+<script src="main.js"></script>
+<script src="dive.js"></script>
+<script src="services.js"></script>
+<script src="work.js"></script>
+<script src="nav.js"></script>
+<script src="process.js"></script>
+<script src="creds.js"></script>
+<script src="close.js"></script>
+<script src="ported.js"></script>
+<script src="mode.js"></script>
+<script src="micro.js"></script>
+</body>
+</html>

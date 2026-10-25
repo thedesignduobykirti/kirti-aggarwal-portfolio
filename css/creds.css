@@ -1,0 +1,37 @@
+/* creds section overrides (v2, Oct 13) */
+
+/* stamps shake the passport through `translate`, so GSAP's transform (the entrance) stays untouched */
+.passport { translate: var(--cr-sx, 0px) var(--cr-sy, 0px); }
+
+/* tools: small header + a slow logo strip */
+.cr-tools { display: grid; gap: 10px; min-width: 0; }
+.cr-tools-k {
+  display: flex; align-items: center; gap: 12px;
+  font-size: 14px; font-weight: 800; letter-spacing: 0; line-height: 1.2; color: var(--cocoa-soft);
+}
+.cr-tools-k::after { content: ""; flex: 1; height: 1px; background: currentColor; opacity: .25; }
+
+/* the strip is wider than the column: never let it stretch the grid */
+.cr .cr-right { min-width: 0; }
+.cr-marquee { position: relative; min-width: 0; }
+/* the moving version: one row, clipped, soft fade at both edges */
+.cr-marquee.is-running {
+  overflow: hidden;
+  /* room for the chip shadow and hover lift inside the clip */
+  padding: 8px 0 22px; margin: -8px 0 -22px;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+}
+.cr-marquee.is-running .cr-track {
+  flex-wrap: nowrap; width: max-content;
+  animation: cr-marquee var(--cr-dur, 30s) linear infinite;
+  will-change: transform;
+}
+.cr-marquee.is-running .tool { flex: none; white-space: nowrap; }
+.cr-marquee.is-running:hover .cr-track,
+.cr-marquee.is-running:focus-within .cr-track { animation-play-state: paused; }
+@keyframes cr-marquee { to { transform: translate3d(calc(-1 * var(--cr-set, 0px)), 0, 0); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .cr-marquee.is-running .cr-track { animation: none; flex-wrap: wrap; width: auto; }
+}

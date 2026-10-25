@@ -1,0 +1,53 @@
+/* hero section overrides (v2, Oct 13): new character, black-ball dive into the reel */
+
+/* her whole face fits under the reel button: glasses on top, nose at the bottom edge */
+.avatar {
+  --aw: min(100vw, 118vh);
+  width: var(--aw);
+  bottom: calc(var(--aw) * -0.07);
+}
+@media (orientation: portrait) {
+  .avatar { --aw: min(172vw, 104vh); width: var(--aw); bottom: calc(var(--aw) * -0.06); }
+}
+
+/* one mask for both eyes, cut from the plate's own eye whites */
+.avatar .eyes {
+  -webkit-mask: url(../assets/hero2-eyes.png) 0 0 / 100% 100% no-repeat;
+          mask: url(../assets/hero2-eyes.png) 0 0 / 100% 100% no-repeat;
+}
+.avatar .eye { width: 7.2%; }
+/* the new irises are a deeper brown than the old texture */
+.avatar .iris { filter: brightness(.86) saturate(1.05); }
+
+/* ---------- the black ball and the player inside it ---------- */
+.window { background: #0d0806; overflow: hidden; }
+.window .player {
+  position: absolute; left: 0; top: 0; width: 100%; height: 100%;
+  border-radius: 22px; overflow: hidden; background: #000;
+  opacity: 0; transform-origin: 50% 50%;
+  box-shadow: 0 40px 120px -30px rgba(0, 0, 0, .9);
+}
+.window .player video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+
+/* words around the reel read light on the black */
+.hero.dark .reel-head { color: var(--cream); }
+.hero.dark .proof { color: rgba(255, 252, 249, .86); }
+.hero.dark .chip { background: rgba(255, 252, 249, .12); color: var(--cream); box-shadow: inset 0 0 0 1px rgba(255, 252, 249, .22); }
+
+/* the top bar flips to light while the screen is black */
+body.is-dark .nav:not(.solid) { --cocoa: #fffcf9; --cocoa-soft: #e8d8cd; color: #fffcf9; }
+
+@media (max-width: 720px) {
+  .window .player { border-radius: 14px; }
+}
+
+/* the contact section no longer holds a character: normal bottom padding */
+.bf { padding-bottom: clamp(80px, 11vh, 130px); }
+
+/* ---------- services peek: the new character leaning in from the right ---------- */
+.peek-eyes {
+  -webkit-mask-image: url(../assets/peek2-eye-mask.png);
+          mask-image: url(../assets/peek2-eye-mask.png);
+}
+.peek .eye { width: 10.4%; }
+.peek .iris { filter: brightness(.86) saturate(1.05); }
