@@ -15,3 +15,6 @@
 @media (orientation: portrait) {
   .avatar { --aw: min(200vw, 125vh); }
 }
+
+/* Neutral edge treatment works on both backgrounds; no theme-dependent halo. */
+.avatar .head { filter: url(#hero-cutout-edge); }
