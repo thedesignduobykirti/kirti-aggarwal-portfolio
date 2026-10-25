@@ -34,6 +34,7 @@
 <link rel="stylesheet" href="css/modes.css">
 <link rel="stylesheet" href="css/ported.css">
 <link rel="stylesheet" href="css/micro.css">
+<link rel="stylesheet" href="css/hero-character.css">
 </head>
 <body id="top">
 
@@ -77,22 +78,26 @@
   </button>
   </div>
 
+  <!-- Tighten only faint alpha residue, preserving opaque hair and glasses. -->
+  <svg width="0" height="0" aria-hidden="true" style="position:absolute;pointer-events:none">
+    <defs><filter id="hero-cutout-edge" x="-2%" y="-2%" width="104%" height="104%" color-interpolation-filters="sRGB">
+      <feComponentTransfer><feFuncA type="linear" slope="1.025" intercept="-0.025"/></feComponentTransfer>
+    </filter></defs>
+  </svg>
   <!-- the avatar; the scroll dive zooms straight into her right pupil -->
   <div class="zoom">
-  <!-- avatar: head plate + irises masked to the eye whites + original eye shading multiplied on top -->
+  <!-- Exact supplied cutout, with independently tracked irises clipped to its eye whites. -->
   <div class="avatar" aria-label="Kirti's 3D avatar peeking up from the bottom of the page" role="img">
     <div class="rig">
-      <img class="head" src="assets/hero2.webp" alt="" draggable="false">
+      <img class="head" src="assets/hero-character/character.webp" alt="" draggable="false">
       <div class="eyes">
-        <div class="eye" data-eye="l" style="--cx:39.794%;--cy:76.25%">
+        <div class="eye" data-eye="l" style="--cx:42.48%;--cy:88.58%">
           <div class="iris"><span class="hl hl1"></span><span class="hl hl2"></span></div>
         </div>
-        <div class="eye" data-eye="r" style="--cx:61.093%;--cy:75.13%">
+        <div class="eye" data-eye="r" style="--cx:57.71%;--cy:88.58%">
           <div class="iris"><span class="hl hl1"></span><span class="hl hl2"></span></div>
         </div>
-        <img class="shade" src="assets/hero2.webp" alt="" draggable="false">
       </div>
-      <img class="lids" src="assets/hero2-lids.webp" alt="" draggable="false">
     </div>
   </div>
   </div>
