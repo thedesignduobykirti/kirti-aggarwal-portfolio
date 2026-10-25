@@ -1,0 +1,8 @@
+/* Replacement artwork geometry only; all animation timelines remain unchanged. */
+.avatar { aspect-ratio: 2048 / 613; }
+.avatar .eyes {
+  background: radial-gradient(ellipse at 50% 65%, #fff9f4 15%, #e4c5b9 80%);
+  -webkit-mask: url(../assets/hero-character/eyes.svg) 0 0 / 100% 100% no-repeat;
+  mask: url(../assets/hero-character/eyes.svg) 0 0 / 100% 100% no-repeat;
+}
+.avatar .eye { width: 6.1%; }

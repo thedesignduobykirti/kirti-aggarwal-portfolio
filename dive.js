@@ -55,7 +55,7 @@
     E.y = r.top + r.height / 2 - hr.top;
     d0 = r.width;                                        // iris diameter at rest
     // the crop line just under her lower lashes: the dive never shows anything below it (no nose)
-    { const ar = avatar.getBoundingClientRect(); B = ar.top + ar.height * 0.835 - hr.top; }
+    { const ar = avatar.getBoundingClientRect(); B = ar.top + ar.height * 0.965 - hr.top; }
     vw = hero.clientWidth;
     vh = hero.clientHeight;
     zoom.style.transform = zt;
